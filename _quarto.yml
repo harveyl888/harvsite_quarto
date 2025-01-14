@@ -1,15 +1,24 @@
 project:
   type: website
 
+freeze: true
+
 website:
-  title: "harvsite_quarto"
+  title: "Harvey Lieberman"
   navbar:
+    pinned: true
+    left:
+      - text: "About"
+        href: about.qmd
+      - text: "Blog"
+        href: index.qmd
     right:
-      - about.qmd
       - icon: github
         href: https://github.com/
       - icon: twitter
         href: https://twitter.com
+      - icon: linkedin
+        href: https://linkedin.com
 format:
   html:
     theme: cosmo
