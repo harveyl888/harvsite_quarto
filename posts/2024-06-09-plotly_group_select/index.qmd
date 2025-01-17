@@ -87,17 +87,18 @@ If we build our plot, passing all data at once, the dropdown menu logic fails.  
 Therefore this code will not work:
 
 ```{r}
-#| echo: true
-#| eval: false
+#| results: asis
+
 p <- plotly::plot_ly(
   data = df, x = ~jitter(as.numeric(group_name)), y = ~value, type = "scatter", mode = "markers", color = ~group_name
 )
+
+p
 ```
 
 But this will:
 ```{r}
-#| echo: true
-#| eval: false
+#| results: asis
 
 ## start with an empty plotly object
 p <- plotly::plot_ly(data = df)
@@ -111,6 +112,8 @@ for (t in time_vals) {
                       type = 'scatter', mode = 'markers',
                       color = ~group_name, visible = t==time_vals[1])
 }
+
+p
 ```
 
 Since we'll be selecting by time, we neede to create a separate trace, one for each time.  A small amount of jitter is added to the x values.  This is achieved by taking the numeric value of `group_name` (a factor) and applying the base R `jitter()` function.  A caveat to this approach is that the x-axis value are now numeric as opposed to the group name.  Initial visibility is defined as `t==time_vals[1]`, which will take the first value in the `time_vals` vector, namely `Time 1`.
@@ -118,8 +121,7 @@ Since we'll be selecting by time, we neede to create a separate trace, one for e
 Finally, we add some axis labels and dropdown, and return the plot.
 
 ```{r}
-#| echo: true
-#| eval: false
+#| results: asis
 
 p <- p |> plotly::layout(
   xaxis = list(title = "Group", showticklabels = FALSE, showgrid = FALSE),
@@ -134,6 +136,6 @@ p <- p |> plotly::layout(
 p
 ```
 
-![](plotly_group_select.gif)
+<!-- ![](plotly_group_select.gif) -->
 
 [^1]: shiny apps can now be built server-free using webR.
