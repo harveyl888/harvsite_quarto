@@ -21,8 +21,7 @@ website:
         href: https://linkedin.com
 format:
   html:
-    theme: cosmo
-    css: styles.css
-
+    theme: 
+      - custom.scss
 
 
