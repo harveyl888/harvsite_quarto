@@ -3,7 +3,7 @@ author: "Harvey"
 title: "Plotly Error Bar Hack"
 date: "2017-10-26"
 description: "Hack to fix error bar issue when using plotly"
-categories: ["R", "Shiny"]
+categories: ["R", "shiny"]
 image: image.png
 execute: 
   message: false

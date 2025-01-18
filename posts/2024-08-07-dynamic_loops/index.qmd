@@ -134,9 +134,4 @@ g <- expand.grid(list(a=c('a', 'b', 'c'), b=c('d', 'e'), c=c('f', 'g')))
 apply(g, 1, f1, prefix = "PRE_")
 ```
 
-```r
- [1] "PRE_adf" "PRE_bdf" "PRE_cdf" "PRE_aef" "PRE_bef" "PRE_cef" "PRE_adg"
- [8] "PRE_bdg" "PRE_cdg" "PRE_aeg" "PRE_beg" "PRE_ceg"
- ```
-
 The advantage of `expand.grid()` is that it is far simpler in nature, however the nested structure is lost.  The recursive approach outlined above offers additional advantages when working with more complex logic.
