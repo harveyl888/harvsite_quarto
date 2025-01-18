@@ -1,0 +1,59 @@
+---
+author: "Harvey"
+title: "Plotly Error Bar Hack"
+date: "2017-10-26"
+description: "Hack to fix error bar issue when using plotly"
+categories: ["R", "Shiny"]
+image: image.png
+execute: 
+  message: false
+  warning: false
+---
+
+Plotly is a great plotting library that I've started to use extensively in part due to the ease in connecting graphs together under R.  There is, however, a bug when using error bars in conjunction with a group variable - error bars are not drawn in the correct order.  This can be fixed with a hack by adding each group as an individual trace.
+
+```{r}
+library(plotly)
+library(dplyr)
+library(tidyr)
+
+## Raw data
+df <- data.frame(sample = rep(paste0('sample ', 1:5), 4),
+                 x = rnorm(20),
+                 group = rep(paste0('group ', 1:2), each = 10),
+                 stringsAsFactors = FALSE
+)
+
+## Stats table
+df2 <- df %>%
+  group_by(sample, group) %>%
+  summarise(avg = mean(x), sd = sd(x)) %>%  ungroup()
+
+df2
+```
+
+```{r}
+## Plotly barchart with error bars.  Error bars are incorrectly assigned
+p1 <- plot_ly(df2, x = ~sample, y = ~avg, color = ~group, type = 'bar', error_y = list(array = ~df2$sd))
+p1
+```
+
+```{r}
+## Create individual columns for group data and errors
+df3 <- df2 %>%
+  gather(key, value, -c(sample, group)) %>%
+  mutate(ref = paste0(group, ifelse(key == 'sd', '_sd', ''))) %>%
+  select(-group, -key) %>%
+  spread(ref, value)
+
+df3
+```
+
+```{r}
+## Plotly barchart displays error bars correctly
+p2 <- plot_ly(df3, type = 'bar')
+for (g in unique(df2$group)) {
+  p2 <- add_trace(p2, x = df3[['sample']], y = df3[[g]], name = g, color = g, error_y = list(array = df3[[paste0(g, '_sd')]]))
+}
+p2
+```
