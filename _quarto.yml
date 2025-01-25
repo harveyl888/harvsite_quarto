@@ -1,7 +1,9 @@
 project:
   type: website
+  resources: 
+    scripts.js
 
-freeze: true
+freeze: auto
 
 website:
   title: "Harvey Lieberman"
@@ -19,9 +21,12 @@ website:
         href: https://twitter.com
       - icon: linkedin
         href: https://linkedin.com
+
 format:
   html:
+    include-after-body:
+      - text: |
+          <script type="text/javascript" src="_resources/js/scripts.js"></script>
     theme: 
       - custom.scss
-
 
