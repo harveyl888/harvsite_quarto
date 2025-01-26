@@ -2,8 +2,7 @@
 author: "Harvey"
 title: "New Year Fun with Quarto"
 date: "2025-01-02"
-#description: "A New Year's balloon pop updated using Quarto"
-description: "A New Year's balloon pop updated using Quarto. A New Year's balloon pop updated using Quarto. A New Year's balloon pop updated using Quarto. A New Year's balloon pop updated using Quarto"
+description: "A New Year's balloon pop updated using Quarto."
 categories: ["Quarto"]
 image: image.jpg
 ---

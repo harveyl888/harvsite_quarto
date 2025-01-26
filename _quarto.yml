@@ -24,9 +24,11 @@ website:
 
 format:
   html:
+    code-block-bg: true
+    code-block-border-left: "#31BAE9"
     include-after-body:
       - text: |
-          <script type="text/javascript" src="_resources/js/scripts.js"></script>
+          <script type="text/javascript" src="/_resources/js/scripts.js"></script>
     theme: 
       - custom.scss
 
