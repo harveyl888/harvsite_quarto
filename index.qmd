@@ -1,9 +1,15 @@
 ---
 typewriter:
   prefix: My name is Harvey and I'm a
-  strings: ["programmer", "scientist"]
+  strings: ["lifelong learner", "data scientist", "programmer", "scientist", "full-stack developer", "database builder", "problem solver", "leader", 'conference organizer']
   loop: true
 ---
 
-
 {{< typewriter >}}
+
+<div class="inline-buttons">
+
+<a href="about.html" class="largebutton">{{< li srupsmbe trigger=hover target=.largebutton style=width:100px;height:100px; >}}About</a>
+<a href="posts/" class="largebutton">{{< li fikcyfpp trigger=hover target=.largebutton style=width:100px;height:100px; >}}Blog</a>
+
+</div>
