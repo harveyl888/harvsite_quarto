@@ -1,6 +1,5 @@
 /*-- scss:rules --*/
 
-//$background-color: #ffffff;
 $header-color: #000000;
 $details-color: #999999;
 $category-background-color: #c7e0eb;
@@ -14,8 +13,8 @@ $body-bg: #ffffff;
 
 body { 
   font-family: 'Roboto', sans-serif; 
-//  background-color: $background-color;
 } 
+
 
 h1, h2, h3, h4, h5, h6 { 
   font-family: 'Roboto', sans-serif; 
@@ -26,50 +25,14 @@ h2 {
   color: green;
 }
 
-a {
+/*a {
   text-decoration: none;
   color: inherit;
 
   &:focus, &:focus-within {
     outline: none;
   }
-}
-
-/*
-.post {
-  &-item {
-    background-color: #ffffff;
-    border-radius: 5px;
-    margin-bottom: 3rem;
-  }
-  &-header {
-    padding: 1rem;
-  }
-  &-link {
-    line-height: 1;
-    > a {
-      display: block;
-      line-height: 1.35; }
-  }
-  &-title {
-    color: $header-color;
-  }
-  &-details {
-    color: $details-color;
-    display: inline-flex;
-    flex-flow: row wrap;
-    .icon {
-      justify-content: center;
-      align-items: center;
-      margin: 0 0.5rem 0 0;
-    }
-  }
-  &-summary {
-    padding: 0 1rem 2.25rem 1rem;
-    font-weight: 200;
-  }
-}
-  */
+}*/
 
 div {
   &.quarto-post {
