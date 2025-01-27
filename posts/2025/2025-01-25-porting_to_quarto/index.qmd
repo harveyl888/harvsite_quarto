@@ -1,0 +1,62 @@
+---
+author: "Harvey"
+title: "Porting to Quarto"
+date: "2025-01-25"
+description: "Porting the site from Hugo to Quarto"
+categories: ["Quarto"]
+draft: true
+---
+
+I'm a big fan of Hugo for building static sites but wanted to port this blog over to Quarto as it's a framework I'm using more consistently.  This post describes some of the extra styling and javascript used to build the blog.
+
+## Index Page
+
+The landing page contains a little javascript typewriter effect along with a couple of navigation buttons.  The typewriter effect is generated using the `Typewriterjs` library ([https://github.com/tameemsafi/typewriterjs](https://github.com/tameemsafi/typewriterjs)), built as a shortcode extension (see [https://github.com/harveyl888/typewriter](https://github.com/harveyl888/typewriter)).  The links are simply styled buttons that use Lord icons through the Quarto extension ([https://github.com/jmgirard/lordicon](https://github.com/jmgirard/lordicon)).
+
+## Listing Layout
+
+Quarto has a few listing formats built in but also allows you to create your own by scripting in ejs.  Initially I tried to build a cool looking listing for blog entries using ejs but realized that some of the interativity, related to clicking on categories, would require to include additional javascript (copied from the Quarto repo).  An alternate approach is to keep a standard listing and style it using scss.  This was how this site was built.
+
+### Background Color
+
+The background color on the listing page is a light grey.  The simplest way to specify the background color for a single page is to use a script tag on the page itself.  For example, the `index.qmd` file for the posts listing contains the following:
+
+```html
+<style>
+  body {
+    background-color: #eeeeee;
+  }
+</style>
+```
+
+## Blog Categories
+
+Blog categories are listed to the side of the posts.  They are styled using scss with a little javascript to remove the parentheses around the counts.  Javascript is shown below.  The code works by finding and looping over all instances of the `quarto-category-count` class and removing the first and last character.  The `document.addEventListener("DOMContentLoaded", function() {})` code waits for the page to load before executing.
+
+```javascript
+document.addEventListener("DOMContentLoaded", function() {
+  const counts = document.querySelectorAll('.quarto-category-count');
+  counts.forEach(count => {
+    let text = count.textContent;
+    if (text.length > 1) {
+      count.textContent = text.slice(1, -1);
+    } else {
+      count.textContent = '';
+    }
+  });
+});  
+```
+
+The javascript script file is added to the bottom of each page by adding the following to `_quarto.yml`:
+
+```yaml
+format:
+  html:
+    include-after-body:
+      - text: |
+          <script type="text/javascript" src="/_resources/js/scripts.js"></script>
+```
+
+## Notes
+
+Porting from Hugo to Quarto was simple and I can now execute R and python as blog entries are built.  In addition, shinylive will allow shiny to be run from within Quarto pages.
