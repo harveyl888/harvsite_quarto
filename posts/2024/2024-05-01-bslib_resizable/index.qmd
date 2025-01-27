@@ -3,7 +3,7 @@ author: "Harvey"
 title: "Resizable bslib Cards"
 date: "2024-03-01"
 description: "bslib dashboards with resizable cards"
-categories: ["R", "shiny"]
+categories: ["R", "Shiny"]
 image: bslib.png
 ---
 

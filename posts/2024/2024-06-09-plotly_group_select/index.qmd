@@ -3,7 +3,7 @@ author: "Harvey"
 title: "Selectable Groups in Plotly"
 date: "2024-06-09"
 description: "How to build a series of selectable groups in Plotly"
-categories: ["R", "shiny"]
+categories: ["R", "Shiny"]
 image: "plotly.png"
 ---
 

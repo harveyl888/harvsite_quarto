@@ -3,7 +3,7 @@ author: "Harvey"
 title: "Toggling Error Bars in Plotly"
 date: "2024-02-15"
 description: "adding buttons to turn error bars on and off"
-categories: ["R", "shiny"]
+categories: ["R", "Shiny"]
 image: image.png
 ---
 
