@@ -1,5 +1,9 @@
 ---
-title: title page
+typewriter:
+  prefix: My name is Harvey and I'm a
+  strings: ["programmer", "scientist"]
+  loop: true
 ---
 
-Title Page
+
+{{< typewriter >}}
