@@ -7,7 +7,7 @@ categories: ["R", "Javascript", "RSConnect"]
 image: distill_comments_01.png
 ---
 
-Following on from a post on [including a contact form on a {distill} site hosted on RStudio Connect](/posts/2021-09-08-distill_contact_form/), here's a post on how to include comments in blog posts.
+Following on from a post on [including a contact form on a {distill} site hosted on RStudio Connect](/posts/2021/2021-09-08-distill_contact_form/), here's a post on how to include comments in blog posts.
 
 Commenting consists of two parts - a way to retrieve comments that belong to a page and a form to enter new comments.
 

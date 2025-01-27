@@ -8,7 +8,7 @@ image: distill_comments_replies_04.png
 ---
 
 
-This post expands upon the post on [{distill} Comments](/posts/2022-01-11-distill_comments/).  It includes a method to reply to comments and store comments and replies in an hierarchical manner.
+This post expands upon the post on [{distill} Comments](/posts/2022/2022-01-11-distill_comments).  It includes a method to reply to comments and store comments and replies in an hierarchical manner.
 
 In the previous post I covered how we could use RStudio Connect to manage commenting on a static blog.  Here we extend it, adding a way to reply to comments and store comments plus replies in a hiersrchical data structure.
 
