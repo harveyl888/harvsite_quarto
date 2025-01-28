@@ -3,7 +3,7 @@ author: "Harvey"
 title: "KEGG and neo4j"
 date: "2017-09-08"
 description: "Importing the KEGG database into neo4j"
-categories: ["neo4j"]
+categories: ["Neo4j"]
 image: map00760-reaction-connections.png
 ---
 
