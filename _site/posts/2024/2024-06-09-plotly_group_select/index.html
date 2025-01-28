@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Harvey">
+<meta name="dcterms.date" content="2024-06-09">
+<meta name="description" content="How to build a series of selectable groups in Plotly">
+
+<title>Selectable Groups in Plotly – Harvey Lieberman</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-3654cba10c78e5045ea13bcaaa6bed86.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="../../../site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="../../../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="../../../site_libs/plotly-binding-4.10.4/plotly.js"></script>
+
+<script src="../../../site_libs/typedarray-0.1/typedarray.min.js"></script>
+
+<script src="../../../site_libs/jquery-3.5.1/jquery.min.js"></script>
+
+<link href="../../../site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+
+<script src="../../../site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+
+<link href="../../../site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+
+<script src="../../../site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Harvey Lieberman</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../posts"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://linkedin.com"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Selectable Groups in Plotly</h1>
+                  <div>
+        <div class="description">
+          How to build a series of selectable groups in Plotly
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">R</div>
+                <div class="quarto-category">Shiny</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Harvey </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 9, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>This is a short tutorial on building a plotly stripchart with a dropdown to select a dataset. It covers a few points such as how to handle stripcharts with jitter in plotly, building the plotly menu programatically and how to format a dataset to work with plotly dropdowns.<br>
+Of course, the same effect can be accomplished with a selectizeInput in shiny but this method does not rely on the use of a server <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and can be embedded in an HTML report.</p>
+<section id="generating-some-dummy-data" class="level2">
+<h2 class="anchored" data-anchor-id="generating-some-dummy-data">Generating Some Dummy Data</h2>
+<p>First, we build some dummy data for the plots.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## build a data frame for demo</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">rep</span>(<span class="fu">seq</span>(<span class="dv">30</span>), <span class="dv">3</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">group_name =</span> <span class="fu">rep</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="at">each =</span> <span class="dv">10</span>), <span class="dv">3</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">time =</span> <span class="fu">rep</span>(<span class="fu">paste</span>(<span class="st">"Time"</span>, <span class="fu">seq</span>(<span class="dv">3</span>)), <span class="at">each =</span> <span class="dv">30</span>),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">lapply</span>(<span class="fu">seq</span>(<span class="dv">9</span>), <span class="cf">function</span>(x) <span class="fu">runif</span>(<span class="at">min=</span>x, <span class="at">max=</span>x<span class="sc">+</span><span class="dv">1</span>, <span class="at">n=</span><span class="dv">10</span>)) <span class="sc">|&gt;</span> <span class="fu">unlist</span>()</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">group_name =</span> <span class="fu">as.factor</span>(group_name))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  id group_name   time    value
+1  1          A Time 1 1.961164
+2  2          A Time 1 1.216296
+3  3          A Time 1 1.345469
+4  4          A Time 1 1.164547
+5  5          A Time 1 1.666648
+6  6          A Time 1 1.869453</code></pre>
+</div>
+</div>
+</section>
+<section id="programatically-building-plotly-dropdown" class="level2">
+<h2 class="anchored" data-anchor-id="programatically-building-plotly-dropdown">Programatically Building Plotly Dropdown</h2>
+<p>Changing a dataset interactively in plotly is not as straightforward as a shiny approach of linking a selectizeInput to a parameter. Plotly’s approach requires passing all data to the plot and toggling visibility. The <code>updatemenus</code> parameter in <code>plotly::layout()</code> is used to build menus (see https://plotly.com/r/dropdowns/).<br>
+The examples on the plotly site show how to restyle a graph, passing a series of parameters through <code>updatemenus</code>. <code>updatemenus</code> itself is a list and can therefore be built programatically. The code below shows how we can build the UI and logic required to select one of the three values of <code>time</code> in our dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## identify the unique values in the time column</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>time_vals <span class="ot">&lt;-</span> df<span class="sc">$</span>time <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sort</span>()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="do">## count the number of values for each time</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>v_time_group <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(time, group_name) <span class="sc">|&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">distinct</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(time) <span class="sc">|&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(time) <span class="sc">|&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">count =</span> dplyr<span class="sc">::</span><span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">pull</span>(count)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="do">## build a set of vectors to send to updatemenus.</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="do">## each member is a set of TRUE/FALSE values denoting visibility.</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>TF_time_vals <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">seq</span>(<span class="fu">length</span>(v_time_group)), <span class="cf">function</span>(i) {</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (i <span class="sc">==</span> <span class="dv">1</span>) {</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    values_false_start <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    values_false_start <span class="ot">&lt;-</span> <span class="fu">sum</span>(v_time_group[<span class="dv">1</span><span class="sc">:</span>(i<span class="dv">-1</span>)])</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (i <span class="sc">==</span> <span class="fu">length</span>(v_time_group)) {</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    values_false_end <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    values_false_end <span class="ot">&lt;-</span> <span class="fu">sum</span>(v_time_group[(i<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span><span class="fu">length</span>(v_time_group)])</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="fu">rep</span>(<span class="cn">FALSE</span>, values_false_start), <span class="fu">rep</span>(<span class="cn">TRUE</span>, v_time_group[i]), <span class="fu">rep</span>(<span class="cn">FALSE</span>, values_false_end))</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">### OUTPUTS for updatemenus</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>time_vals</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Time 1" "Time 2" "Time 3"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>TF_time_vals</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1]  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
+
+[[2]]
+[1] FALSE FALSE FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE
+
+[[3]]
+[1] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE</code></pre>
+</div>
+</div>
+<p>The <code>updatemenus</code> list is built using the code below. Essentially it is a list of a label, for each time point, and vector of boolean values denoting visibility, for each group at each time point. It should be noted that each vector for visibility has nine values denoting the three groups (A, B and C) at the three time points (Time 1, Time 2 and Time 3). In the first, <code>TF_time_vals[[1]]</code>, we specify that all three groups are visible for Time 1 but not Time 2 or Time 3.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>update_menus_buttons <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">seq_along</span>(time_vals), <span class="cf">function</span>(i) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">method =</span> <span class="st">"update"</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">args =</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">visible =</span> TF_time_vals[[i]])),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">label =</span> time_vals[i]</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="build-the-chart" class="level2">
+<h2 class="anchored" data-anchor-id="build-the-chart">Build the Chart</h2>
+<p>If we build our plot, passing all data at once, the dropdown menu logic fails. This is because plotly expects a series of separate traces for the dropdown menu.</p>
+<p>Therefore this code will not work:</p>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> plotly<span class="sc">::</span><span class="fu">plot_ly</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df, <span class="at">x =</span> <span class="sc">~</span><span class="fu">jitter</span>(<span class="fu">as.numeric</span>(group_name)), <span class="at">y =</span> <span class="sc">~</span>value, <span class="at">type =</span> <span class="st">"scatter"</span>, <span class="at">mode =</span> <span class="st">"markers"</span>, <span class="at">color =</span> <span class="sc">~</span>group_name</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-c394a22d1b51cd0551c7" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-c394a22d1b51cd0551c7">{"x":{"visdat":{"e7d8e0f2908":["function () ","plotlyVisDat"]},"cur_data":"e7d8e0f2908","attrs":{"e7d8e0f2908":{"x":{},"y":{},"mode":"markers","color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"jitter(as.numeric(group_name))"},"yaxis":{"domain":[0,1],"automargin":true,"title":"value"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[1.1761957054957748,0.81809587506577375,0.86974344877526166,1.0252785364165902,1.0361051562242209,1.1067482211627067,0.98250344935804601,0.8797224590554833,1.1051821330562235,0.93559223217889664,1.048059217724949,0.81985875219106674,0.98393380744382741,0.91975752571597691,1.1677775611169636,1.0208944876678288,0.81225058501586322,1.1007003641687334,1.1397341758944095,1.174856440257281,1.0713064729236066,0.82486076476052406,0.89821406314149499,1.0072364700958132,1.1136078343726694,1.1540663636289537,0.81641044905409221,1.0410408200696111,0.86841651834547517,1.0131578074768186],"y":[1.9611640989314765,1.2162964357994497,1.345468717161566,1.1645467311609536,1.6666476752143353,1.8694531398359686,1.4084012240637094,1.9878366179764271,1.9176095519214869,1.4643176023382694,4.3819842520169914,4.4775993372313678,4.4182881691958755,4.8486487925983965,4.216986600542441,4.4250532232690603,4.3127530948258936,4.5779630017932504,4.4854757734574378,4.7756832214072347,7.4898519620765001,7.7932640356011689,7.9368977400008589,7.1198011357337236,7.5513176054228097,7.6547280894592404,7.612523092655465,7.5999454588163644,7.0583496326580644,7.9301012919750065],"mode":"markers","type":"scatter","name":"A","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2.1190446455031635,2.1799289365299046,2.0620969007723033,2.0170050137676299,1.9035103330388665,1.9437191294506193,2.0099175861105323,1.9787344582378865,2.1277124907821419,2.046738525852561,2.0962445895187556,2.044272224139422,1.9432306905277072,1.8815493669360877,1.8071820312179625,1.8076749201864004,1.9208315710537136,2.036079591419548,1.9171837543137371,1.828424899186939,1.9031177881173789,2.0996746388264,1.9758135382086039,2.0387721436098216,2.018552909884602,1.8373737405985593,1.9447302926331758,1.8533162497915328,2.1005683205090464,2.04854353973642],"y":[2.9288276652805507,2.987551654689014,2.0500735610257834,2.3388296742923558,2.7533292339649051,2.2153612112160772,2.1313632980454713,2.4012749441899359,2.7623505804222077,2.9310142742469907,5.1815128920134157,5.8780863541178405,5.3892105075065047,5.5114453288260847,5.014132916694507,5.1404857467859983,5.1423896241467446,5.7311021976638585,5.5539142563939095,5.3535585054196417,8.1357156008016318,8.5185819391626865,8.6603216135408729,8.7409013868309557,8.88714953023009,8.6382363438606262,8.300630408572033,8.6910099673550576,8.2192891319282353,8.59845105628483],"mode":"markers","type":"scatter","name":"B","marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2.8410092275589705,2.9422346131876109,2.9642889151349663,2.9526667302474379,3.1578105065040289,2.9513924883678557,3.0758346792310478,2.9903967570513488,3.094539748877287,3.0920701603405178,3.1004480361938476,3.0716238967142999,3.0724562152288852,2.9604675815440715,2.8167141832411291,2.8482308790087698,2.9960542624816298,2.93565608933568,2.9101907228119672,2.8359602841548623,3.0760808736085892,3.153978467080742,2.9850214666686954,3.0638298356905578,3.0079840894788505,2.9478387309238316,2.9518136066384613,3.1696915755048396,3.1274915123358369,3.1409507828764616],"y":[3.1465930920094252,3.2577189656440169,3.3099001937080175,3.2436827507335693,3.2932713094633073,3.6767632488626987,3.0112421636004001,3.4297423586249352,3.9092117981053889,3.8594709155149758,6.8337971335276961,6.8942228986416012,6.9081717294175178,6.8917771163396537,6.0097927234601229,6.4313813678454608,6.5821183621883392,6.6623198038432747,6.4626213354058564,6.2944955863058567,9.9090848343912512,9.0790969741065055,9.362681589089334,9.8410403449088335,9.6277357488870621,9.9974982228595763,9.6858065964188427,9.6232320934068412,9.711284869350493,9.6585536187049001],"mode":"markers","type":"scatter","name":"C","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>But this will:</p>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## start with an empty plotly object</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> plotly<span class="sc">::</span><span class="fu">plot_ly</span>(<span class="at">data =</span> df)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (t <span class="cf">in</span> time_vals) {</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(time <span class="sc">==</span> t)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> p <span class="sc">|&gt;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    plotly<span class="sc">::</span><span class="fu">add_trace</span>(<span class="at">data =</span> d,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">x =</span> <span class="sc">~</span><span class="fu">jitter</span>(<span class="fu">as.numeric</span>(group_name)),</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">y =</span> <span class="sc">~</span>value,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                      <span class="at">type =</span> <span class="st">'scatter'</span>, <span class="at">mode =</span> <span class="st">'markers'</span>,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>                      <span class="at">color =</span> <span class="sc">~</span>group_name, <span class="at">visible =</span> t<span class="sc">==</span>time_vals[<span class="dv">1</span>])</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-3027bde23ffa5863bce9" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-3027bde23ffa5863bce9">{"x":{"visdat":{"e7d869125d7c":["function () ","plotlyVisDat"],"e7d8236f7674":["function () ","data"],"e7d8237d2c0a":["function () ","data"],"e7d81d9938ba":["function () ","data"]},"cur_data":"e7d81d9938ba","attrs":{"e7d8236f7674":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"markers","color":{},"visible":true,"inherit":true},"e7d8237d2c0a":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"markers","color":{},"visible":false,"inherit":true},"e7d81d9938ba":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"markers","color":{},"visible":false,"inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"jitter(as.numeric(group_name))"},"yaxis":{"domain":[0,1],"automargin":true,"title":"value"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[0.9479940233752131,1.0445746078155935,1.1564053116366266,1.0172825678251685,0.89130951967090366,1.1180925262160599,0.92777274949476118,1.1510732172057032,0.81571288667619224,0.80995390973985193],"y":[1.9611640989314765,1.2162964357994497,1.345468717161566,1.1645467311609536,1.6666476752143353,1.8694531398359686,1.4084012240637094,1.9878366179764271,1.9176095519214869,1.4643176023382694],"type":"scatter","mode":"markers","visible":true,"name":"A","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2.1971725007519125,1.9760862900875509,2.1113118556328119,1.8553241149522364,2.0012254040688275,1.9641354496590793,1.8393676945008337,1.9424278231337666,2.090041613020003,2.0635721743106843],"y":[2.9288276652805507,2.987551654689014,2.0500735610257834,2.3388296742923558,2.7533292339649051,2.2153612112160772,2.1313632980454713,2.4012749441899359,2.7623505804222077,2.9310142742469907],"type":"scatter","mode":"markers","visible":true,"name":"B","marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[3.1232912817038594,2.9548942203633488,3.0780944059602917,2.9445462067611516,3.0123412676155565,3.1756009534932672,2.9121037830598651,3.1279729494825004,3.0518145855516194,2.8028440169990061],"y":[3.1465930920094252,3.2577189656440169,3.3099001937080175,3.2436827507335693,3.2932713094633073,3.6767632488626987,3.0112421636004001,3.4297423586249352,3.9092117981053889,3.8594709155149758],"type":"scatter","mode":"markers","visible":true,"name":"C","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[0.82357216505333786,1.185838491562754,1.0470783026888966,1.1523412491194904,1.164892686251551,1.1647465740330518,1.1455614405684174,1.0102687780745327,0.99433590415865181,1.1696117914281785],"y":[4.3819842520169914,4.4775993372313678,4.4182881691958755,4.8486487925983965,4.216986600542441,4.4250532232690603,4.3127530948258936,4.5779630017932504,4.4854757734574378,4.7756832214072347],"type":"scatter","mode":"markers","visible":false,"name":"A","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2.0380720756947994,1.9683496019802988,2.1101359720341861,2.0303892150521277,1.8420401728712021,2.0990945947356523,2.0796510523185132,2.1734847610816361,1.8959515672177076,2.0142771385610105],"y":[5.1815128920134157,5.8780863541178405,5.3892105075065047,5.5114453288260847,5.014132916694507,5.1404857467859983,5.1423896241467446,5.7311021976638585,5.5539142563939095,5.3535585054196417],"type":"scatter","mode":"markers","visible":false,"name":"B","marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[3.0578816331923009,2.966978733986616,3.1882506294175981,2.9068970722146332,3.1774104322306811,2.8310449165292084,2.9693225043825806,3.1720154732465744,2.8604746765457092,2.8943779649212957],"y":[6.8337971335276961,6.8942228986416012,6.9081717294175178,6.8917771163396537,6.0097927234601229,6.4313813678454608,6.5821183621883392,6.6623198038432747,6.4626213354058564,6.2944955863058567],"type":"scatter","mode":"markers","visible":false,"name":"C","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[0.83039609538391235,1.0193614430725575,1.0012778914533556,0.84664323581382628,1.0466416631825268,0.80962789673358204,1.0574643818661571,0.89651008723303671,1.1843150821514428,1.1176157190464437],"y":[7.4898519620765001,7.7932640356011689,7.9368977400008589,7.1198011357337236,7.5513176054228097,7.6547280894592404,7.612523092655465,7.5999454588163644,7.0583496326580644,7.9301012919750065],"type":"scatter","mode":"markers","visible":false,"name":"A","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2.0150799318216741,1.9789527667686344,1.8468523507006467,1.8646188955754042,2.1438251916319131,2.0730370572768151,1.9769263805821538,2.0206534347496925,1.8598891926929355,1.8011332324706018],"y":[8.1357156008016318,8.5185819391626865,8.6603216135408729,8.7409013868309557,8.88714953023009,8.6382363438606262,8.300630408572033,8.6910099673550576,8.2192891319282353,8.59845105628483],"type":"scatter","mode":"markers","visible":false,"name":"B","marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[3.1848615046590565,2.8453812412917614,2.8001134427264334,2.9994045293889942,2.9644143566489221,3.063530440069735,3.1795371132902801,3.0837527197785675,3.0047849313355983,3.1172708930447697],"y":[9.9090848343912512,9.0790969741065055,9.362681589089334,9.8410403449088335,9.6277357488870621,9.9974982228595763,9.6858065964188427,9.6232320934068412,9.711284869350493,9.6585536187049001],"type":"scatter","mode":"markers","visible":false,"name":"C","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>Since we’ll be selecting by time, we neede to create a separate trace, one for each time. A small amount of jitter is added to the x values. This is achieved by taking the numeric value of <code>group_name</code> (a factor) and applying the base R <code>jitter()</code> function. A caveat to this approach is that the x-axis value are now numeric as opposed to the group name. Initial visibility is defined as <code>t==time_vals[1]</code>, which will take the first value in the <code>time_vals</code> vector, namely <code>Time 1</code>.</p>
+<p>Finally, we add some axis labels and dropdown, and return the plot.</p>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">|&gt;</span> plotly<span class="sc">::</span><span class="fu">layout</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Group"</span>, <span class="at">showticklabels =</span> <span class="cn">FALSE</span>, <span class="at">showgrid =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Values"</span>))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">|&gt;</span> plotly<span class="sc">::</span><span class="fu">layout</span>(</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">updatemenus =</span> <span class="fu">list</span>(</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">x =</span> <span class="fl">0.1</span>, <span class="at">y =</span> <span class="fl">1.1</span>, <span class="at">buttons =</span> update_menus_buttons)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-3e0725b4ffe488da81ec" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-3e0725b4ffe488da81ec">{"x":{"visdat":{"e7d869125d7c":["function () ","plotlyVisDat"],"e7d8236f7674":["function () ","data"],"e7d8237d2c0a":["function () ","data"],"e7d81d9938ba":["function () ","data"]},"cur_data":"e7d81d9938ba","attrs":{"e7d8236f7674":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"markers","color":{},"visible":true,"inherit":true},"e7d8237d2c0a":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"markers","color":{},"visible":false,"inherit":true},"e7d81d9938ba":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"markers","color":{},"visible":false,"inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"Group","showticklabels":false,"showgrid":false},"yaxis":{"domain":[0,1],"automargin":true,"title":"Values"},"updatemenus":[{"x":0.10000000000000001,"y":1.1000000000000001,"buttons":[{"method":"update","args":[{"visible":[true,true,true,false,false,false,false,false,false]}],"label":"Time 1"},{"method":"update","args":[{"visible":[false,false,false,true,true,true,false,false,false]}],"label":"Time 2"},{"method":"update","args":[{"visible":[false,false,false,false,false,false,true,true,true]}],"label":"Time 3"}]}],"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[0.92756475470960142,0.90040128398686647,1.0636064123362303,0.80490960786119103,0.84664819585159423,1.16416867217049,1.0745452439412475,0.81867516553029418,0.82989827170968056,0.88952717920765279],"y":[1.9611640989314765,1.2162964357994497,1.345468717161566,1.1645467311609536,1.6666476752143353,1.8694531398359686,1.4084012240637094,1.9878366179764271,1.9176095519214869,1.4643176023382694],"type":"scatter","mode":"markers","visible":true,"name":"A","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2.1998064059764149,2.0748642957769334,1.9689320132136345,2.1353598158806562,2.1265739349648358,1.8051277593709529,1.8713968796655536,2.0591636157594619,2.1256007415242495,1.9343864025548101],"y":[2.9288276652805507,2.987551654689014,2.0500735610257834,2.3388296742923558,2.7533292339649051,2.2153612112160772,2.1313632980454713,2.4012749441899359,2.7623505804222077,2.9310142742469907],"type":"scatter","mode":"markers","visible":true,"name":"B","marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2.9753050499595703,2.8739402509294449,3.0597492472268639,3.0059414789080621,3.1824888065457344,2.9518535556271672,3.0328575695864854,3.147632728051394,3.1246215221472085,3.1851146110333501],"y":[3.1465930920094252,3.2577189656440169,3.3099001937080175,3.2436827507335693,3.2932713094633073,3.6767632488626987,3.0112421636004001,3.4297423586249352,3.9092117981053889,3.8594709155149758],"type":"scatter","mode":"markers","visible":true,"name":"C","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[0.83699859846383329,0.81703477147966619,1.1027672442607581,0.93777985945343967,0.90496174730360512,0.96652743052691226,1.038343351520598,1.1248547765426338,1.1603263686411083,0.84267491130158301],"y":[4.3819842520169914,4.4775993372313678,4.4182881691958755,4.8486487925983965,4.216986600542441,4.4250532232690603,4.3127530948258936,4.5779630017932504,4.4854757734574378,4.7756832214072347],"type":"scatter","mode":"markers","visible":false,"name":"A","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2.1481406804174186,1.8982088326476514,2.1732169445604086,2.0007119990885256,1.9840641882270575,2.0751781619153915,2.1775537363253532,2.0152966362424194,2.0728836375288666,1.8019666488282382],"y":[5.1815128920134157,5.8780863541178405,5.3892105075065047,5.5114453288260847,5.014132916694507,5.1404857467859983,5.1423896241467446,5.7311021976638585,5.5539142563939095,5.3535585054196417],"type":"scatter","mode":"markers","visible":false,"name":"B","marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2.8782804776914417,2.9727026747539638,2.9434441332705319,3.0379222571849822,2.9850185663439333,3.1598034595139324,3.1556945801712573,2.9334004061296581,2.9054143709130584,3.1046097443439065],"y":[6.8337971335276961,6.8942228986416012,6.9081717294175178,6.8917771163396537,6.0097927234601229,6.4313813678454608,6.5821183621883392,6.6623198038432747,6.4626213354058564,6.2944955863058567],"type":"scatter","mode":"markers","visible":false,"name":"C","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[1.0286767762154341,1.0647821674123406,1.1241782543249428,0.88017393676564093,1.0404515550471842,1.0316034493967892,0.81691906321793795,0.91661673504859209,0.90820389529690149,0.94074956942349675],"y":[7.4898519620765001,7.7932640356011689,7.9368977400008589,7.1198011357337236,7.5513176054228097,7.6547280894592404,7.612523092655465,7.5999454588163644,7.0583496326580644,7.9301012919750065],"type":"scatter","mode":"markers","visible":false,"name":"A","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2.0490156222134828,2.1551636490970849,1.9536736143752933,2.1992828456684945,1.9261009067296981,1.984271993022412,2.0528749208897352,2.1394596059806643,2.0222719778306781,1.9542807023040951],"y":[8.1357156008016318,8.5185819391626865,8.6603216135408729,8.7409013868309557,8.88714953023009,8.6382363438606262,8.300630408572033,8.6910099673550576,8.2192891319282353,8.59845105628483],"type":"scatter","mode":"markers","visible":false,"name":"B","marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2.936053760908544,3.0894503896124661,3.0870404339395465,3.0998185077682137,2.9367949925363064,3.0695024487562477,3.1820938643999397,2.9186424550600352,2.9874320547096431,3.0640724383294584],"y":[9.9090848343912512,9.0790969741065055,9.362681589089334,9.8410403449088335,9.6277357488870621,9.9974982228595763,9.6858065964188427,9.6232320934068412,9.711284869350493,9.6585536187049001],"type":"scatter","mode":"markers","visible":false,"name":"C","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<!-- ![](plotly_group_select.gif) -->
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>shiny apps can now be built server-free using webR.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<script type="text/javascript" src="../../../_resources/js/scripts.js"></script>
+
+
+
+
+</body></html>
