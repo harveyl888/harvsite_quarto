@@ -3,6 +3,8 @@ typewriter:
   prefix: My name is Harvey and I'm a
   strings: ["lifelong learner", "data scientist", "programmer", "scientist", "full-stack developer", "database builder", "problem solver", "leader", 'conference organizer']
   loop: true
+  delay: 100
+  pauseFor: 2000
 ---
 
 {{< typewriter >}}
