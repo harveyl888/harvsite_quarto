@@ -3,7 +3,7 @@ project:
   resources: 
     scripts.js
 
-freeze: auto
+freeze: true
 
 website:
   title: "Harvey Lieberman"
@@ -15,12 +15,12 @@ website:
       - text: "Blog"
         href: posts
     right:
-      - icon: github
-        href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
-      - icon: linkedin
-        href: https://linkedin.com
+      - text: "{{< li yvjimpju trigger=hover colors=primary:#ffffff,secondary:#c7e0eb >}}"
+        href: https://github.com/harveyl888
+      - text: "{{< li wlbymhoo trigger=hover colors=primary:#ffffff,secondary:#c7e0eb >}}"
+        href: https://twitter.com/harveyl888
+      - text: "{{< li qgebwute trigger=hover colors=primary:#ffffff,secondary:#c7e0eb >}}"
+        href: https://www.linkedin.com/in/harvey-lieberman
 
 format:
   html:
@@ -30,5 +30,6 @@ format:
       - text: |
           <script type="text/javascript" src="/_resources/js/scripts.js"></script>
     theme: 
+      - default
       - custom.scss
 
