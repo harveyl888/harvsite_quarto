@@ -1,15 +1,8 @@
-/*-- scss:rules --*/
-
-$header-color: #000000;
-$details-color: #999999;
-$category-background-color: #c7e0eb;
-$category-foreground-color: #1b3485;
-$category-hover-background-color: #1b3485;
-$category-hover-foreground-color: #eeeeee;
-
-$body-bg: #ffffff;
+/*-- scss:defaults --*/
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@200;400;700&display=swap'); 
+
+/*-- scss:rules --*/
 
 body { 
   font-family: 'Roboto', sans-serif; 
@@ -17,22 +10,9 @@ body {
 
 
 h1, h2, h3, h4, h5, h6 { 
-  font-family: 'Roboto', sans-serif; 
   font-weight: 400; 
 }
 
-h2 {
-  color: green;
-}
-
-/*a {
-  text-decoration: none;
-  color: inherit;
-
-  &:focus, &:focus-within {
-    outline: none;
-  }
-}*/
 
 div {
   &.quarto-post {
@@ -40,7 +20,7 @@ div {
     gap: 2em;
     margin-bottom: 1.5em;
     border-bottom: none;
-    background-color: #ffffff;
+    background-color: $post-listing-background;
     border-radius: 15px;
     padding: 10px;
     & .listing-description {
@@ -79,6 +59,9 @@ div {
   }
 }
 
+.quarto-listing-category-title {
+  color: #000000
+}
 
 .quarto-listing-category {
   padding-top: 0;
@@ -155,5 +138,4 @@ div {
     }
   }
 }
-
 

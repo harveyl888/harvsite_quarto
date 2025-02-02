@@ -1,7 +1,10 @@
 project:
   type: website
   resources: 
-    scripts.js
+    - custom.scss
+    - custom-light.scss
+    - custom-dark.scss
+#    scripts.js
 
 freeze: true
 
@@ -30,6 +33,6 @@ format:
       - text: |
           <script type="text/javascript" src="/_resources/js/scripts.js"></script>
     theme: 
-      - default
-      - custom.scss
+      light: [flatly, custom.scss, custom-light.scss]
+      dark: [darkly, custom.scss, custom-dark.scss]
 
