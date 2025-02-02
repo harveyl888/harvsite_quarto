@@ -12,6 +12,6 @@ title-block-banner: true
 ---
 <style>
   body {
-    background-color: #eeeeee;
+    background-color: var(--post-page-background);
   }
 </style>
