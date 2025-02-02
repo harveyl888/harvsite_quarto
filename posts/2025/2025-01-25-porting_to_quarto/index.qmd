@@ -4,7 +4,6 @@ title: "Porting to Quarto"
 date: "2025-01-25"
 description: "Porting the site from Hugo to Quarto"
 categories: ["Quarto"]
-draft: true
 ---
 
 I'm a big fan of Hugo for building static sites but wanted to port this blog over to Quarto as it's a framework I'm using more consistently.  This post describes some of the extra styling and javascript used to build the blog.
@@ -13,13 +12,47 @@ I'm a big fan of Hugo for building static sites but wanted to port this blog ove
 
 The landing page contains a little javascript typewriter effect along with a couple of navigation buttons.  The typewriter effect is generated using the `Typewriterjs` library ([https://github.com/tameemsafi/typewriterjs](https://github.com/tameemsafi/typewriterjs)), built as a shortcode extension (see [https://github.com/harveyl888/typewriter](https://github.com/harveyl888/typewriter)).  The links are simply styled buttons that use Lord icons through the Quarto extension ([https://github.com/jmgirard/lordicon](https://github.com/jmgirard/lordicon)).
 
+## Light/Dark Theme
+
+It's fairly simple to set a light/dark theme in Quarto and add additional styling.  The `_quarto.yaml` file includes the following lines which specifies an override order.  Light and dark themes use a default (flatly, darkly) which is replaced with some general styling in `custom.scss`.  Finally, specific light and dark styles are applied using `custom-light.scss` and `custom-dark.scss`.
+
+```yaml
+format:
+  html:
+    theme: 
+      light: [flatly, custom.scss, custom-light.scss]
+      dark: [darkly, custom.scss, custom-dark.scss]
+```
+
+### Light and Dark Swtiching
+
+By default, Quarto includes a switch to change from light to dark mode.  The switch is, in fact, two icons (switch to the left and switch to the right) from Bootstrap icons.  This [discussion](https://github.com/quarto-dev/quarto-cli/discussions/8380) pointed to the code used to define the light and dark icons, which can be changed by simply copying the svg code from [https://icons.getbootstrap.com/](https://icons.getbootstrap.com/).  The folllowing has been added to `custom.scss` to replace the switch with sun and moon icons.
+
+```scss
+.navbar .quarto-color-scheme-toggle:not(.alternate) .bi::before { 
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#{colorToRGBA($navbar-light-color)}" class="bi bi-sun" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/></svg>'); 
+} 
+ 
+.sidebar-navigation .quarto-color-scheme-toggle:not(.alternate) .bi::before { 
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#{colorToRGBA(theme-dim($body-color, 10%))}" class="bi bi-sun" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/></svg>'); 
+} 
+ 
+.navbar .quarto-color-scheme-toggle.alternate .bi::before { 
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#{colorToRGBA($navbar-light-color)}" class="bi bi-moon" viewBox="0 0 16 16"><path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286"/></svg>'); 
+} 
+ 
+.sidebar-navigation .quarto-color-scheme-toggle.alternate .bi::before { 
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#{colorToRGBA(theme-dim($body-color, 10%))}" class="bi bi-moon" viewBox="0 0 16 16"><path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286"/></svg>'); 
+} 
+```
+
 ## Listing Layout
 
 Quarto has a few listing formats built in but also allows you to create your own by scripting in ejs.  Initially I tried to build a cool looking listing for blog entries using ejs but realized that some of the interativity, related to clicking on categories, would require to include additional javascript (copied from the Quarto repo).  An alternate approach is to keep a standard listing and style it using scss.  This was how this site was built.
 
-### Background Color
+### Listing Page Background Color
 
-The background color on the listing page is a light grey.  The simplest way to specify the background color for a single page is to use a script tag on the page itself.  For example, the `index.qmd` file for the posts listing contains the following:
+To set body properties for a single page you can add a `<style>` tag at the top of the quarto qmd file.  For example, to set a body background color to grey you could insert the following code just after the yaml heading:
 
 ```html
 <style>
@@ -28,6 +61,36 @@ The background color on the listing page is a light grey.  The simplest way to s
   }
 </style>
 ```
+
+Since we have a dark/light mode, I would like the body background color on the listing page to change with the theme of the site.  Our themes are built with scss but the `<style>` tag takes css.  In order to make the body background change according to the theme setting I've added a css variable to the top of the scss `custom-light.scss` and `custom-dark.scss` files.  The variable is added before the first section commment.
+
+custom-light.scss starts with:
+
+```scss
+:root {
+  --post-page-background: #eeeeee;
+}
+```
+
+custom-dark.scss starts with:
+
+```scss
+:root {
+  --post-page-background: #444444;
+}
+```
+
+and posts/index.qmd contains the following code just after the yaml header:
+
+```html
+<style>
+  body {
+    background-color: var(--post-page-background);
+  }
+</style>
+```
+
+When the posts listing page is built the background color will be set to the css variable `--post-page-background` which is defined in the light and dark scss files.
 
 ## Blog Categories
 
