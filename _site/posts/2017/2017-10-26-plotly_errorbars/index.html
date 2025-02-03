@@ -71,10 +71,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-3654cba10c78e5045ea13bcaaa6bed86.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-4784f2bdd77d1d23fe03cd773dacae73.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-4b9f7a5af56d98c1800fd0d99de1a585.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script src="../../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -167,6 +169,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -241,18 +244,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>df2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 4
-   sample   group       avg      sd
-   &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;
- 1 sample 1 group 1 -1.00   0.496  
- 2 sample 1 group 2 -0.749  0.721  
- 3 sample 2 group 1  0.0682 1.47   
- 4 sample 2 group 2 -0.767  0.207  
- 5 sample 3 group 1  0.705  0.201  
- 6 sample 3 group 2  1.34   0.00483
- 7 sample 4 group 1 -0.704  1.20   
- 8 sample 4 group 2 -0.159  0.784  
- 9 sample 5 group 1  0.256  0.713  
-10 sample 5 group 2 -0.348  1.87   </code></pre>
+   sample   group       avg     sd
+   &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+ 1 sample 1 group 1  1.13   0.816 
+ 2 sample 1 group 2  0.946  1.55  
+ 3 sample 2 group 1  0.798  2.98  
+ 4 sample 2 group 2 -0.0644 1.11  
+ 5 sample 3 group 1  1.48   0.0388
+ 6 sample 3 group 2 -0.439  0.346 
+ 7 sample 4 group 1 -0.507  0.225 
+ 8 sample 4 group 2  1.59   0.779 
+ 9 sample 5 group 1  0.820  1.82  
+10 sample 5 group 2  0.542  1.13  </code></pre>
 </div>
 </div>
 <div class="cell">
@@ -260,8 +263,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">plot_ly</span>(df2, <span class="at">x =</span> <span class="sc">~</span>sample, <span class="at">y =</span> <span class="sc">~</span>avg, <span class="at">color =</span> <span class="sc">~</span>group, <span class="at">type =</span> <span class="st">'bar'</span>, <span class="at">error_y =</span> <span class="fu">list</span>(<span class="at">array =</span> <span class="sc">~</span>df2<span class="sc">$</span>sd))</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>p1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="plotly html-widget html-fill-item" id="htmlwidget-25ec8d97e0deb575b1ee" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-25ec8d97e0deb575b1ee">{"x":{"visdat":{"e1ec513e6059":["function () ","plotlyVisDat"]},"cur_data":"e1ec513e6059","attrs":{"e1ec513e6059":{"x":{},"y":{},"error_y":{"array":{}},"color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"sample","type":"category","categoryorder":"array","categoryarray":["sample 1","sample 2","sample 3","sample 4","sample 5"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"avg"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["sample 1","sample 2","sample 3","sample 4","sample 5"],"y":[-1.0011100878398556,0.068200408040554938,0.70502624350349619,-0.70423007421601946,0.25598610141373557],"error_y":{"color":"rgba(102,194,165,1)","array":[0.49580745591391168,0.72069682907213573,1.4712924908613692,0.20708801419612055,0.20066781385800742]},"type":"bar","name":"group 1","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["sample 1","sample 2","sample 3","sample 4","sample 5"],"y":[-0.74905354544327352,-0.76723241255538088,1.3391354149341135,-0.15859280828373767,-0.3479037021133195],"error_y":{"color":"rgba(141,160,203,1)","array":[0.0048254822835312201,1.2008110106294652,0.78438935700533041,0.71254785463886272,1.8654850865498733]},"type":"bar","name":"group 2","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-9cc816e957d10a691175" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-9cc816e957d10a691175">{"x":{"visdat":{"17cbc5e156dba":["function () ","plotlyVisDat"]},"cur_data":"17cbc5e156dba","attrs":{"17cbc5e156dba":{"x":{},"y":{},"error_y":{"array":{}},"color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"sample","type":"category","categoryorder":"array","categoryarray":["sample 1","sample 2","sample 3","sample 4","sample 5"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"avg"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["sample 1","sample 2","sample 3","sample 4","sample 5"],"y":[1.1260697928442935,0.7982045264522537,1.4769600334938131,-0.50693518418903238,0.82021617417223947],"error_y":{"color":"rgba(102,194,165,1)","array":[0.81582899453198332,1.5459231132618843,2.9778279769227827,1.1094783427628201,0.038843446649677642]},"type":"bar","name":"group 1","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["sample 1","sample 2","sample 3","sample 4","sample 5"],"y":[0.94639016419627298,-0.064363513989150856,-0.43866564697344335,1.5850998986106821,0.54248010691988335],"error_y":{"color":"rgba(141,160,203,1)","array":[0.34565960060131301,0.22513700107151449,0.77872327138083275,1.8179275212012023,1.1264364817836516]},"type":"bar","name":"group 2","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="cell">
@@ -277,11 +280,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 5 × 5
   sample   `group 1` `group 1_sd` `group 2` `group 2_sd`
   &lt;chr&gt;        &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;
-1 sample 1   -1.00          0.496    -0.749      0.721  
-2 sample 2    0.0682        1.47     -0.767      0.207  
-3 sample 3    0.705         0.201     1.34       0.00483
-4 sample 4   -0.704         1.20     -0.159      0.784  
-5 sample 5    0.256         0.713    -0.348      1.87   </code></pre>
+1 sample 1     1.13        0.816     0.946         1.55 
+2 sample 2     0.798       2.98     -0.0644        1.11 
+3 sample 3     1.48        0.0388   -0.439         0.346
+4 sample 4    -0.507       0.225     1.59          0.779
+5 sample 5     0.820       1.82      0.542         1.13 </code></pre>
 </div>
 </div>
 <div class="cell">
@@ -292,8 +295,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="plotly html-widget html-fill-item" id="htmlwidget-d1fb320ccda309902253" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-d1fb320ccda309902253">{"x":{"visdat":{"e1ec4a61e69":["function () ","plotlyVisDat"]},"cur_data":"e1ec4a61e69","attrs":{"e1ec4a61e69":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"},"e1ec4a61e69.1":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","x":["sample 1","sample 2","sample 3","sample 4","sample 5"],"y":[-1.0011100878398556,0.068200408040554938,0.70502624350349619,-0.70423007421601946,0.25598610141373557],"name":"group 1","color":"group 1","error_y":{"array":[0.49580745591391168,1.4712924908613692,0.20066781385800742,1.2008110106294652,0.71254785463886272]},"inherit":true},"e1ec4a61e69.2":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","x":["sample 1","sample 2","sample 3","sample 4","sample 5"],"y":[-0.74905354544327352,-0.76723241255538088,1.3391354149341135,-0.15859280828373767,-0.3479037021133195],"name":"group 2","color":"group 2","error_y":{"array":[0.72069682907213573,0.20708801419612055,0.0048254822835312201,0.78438935700533041,1.8654850865498733]},"inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":[]},"yaxis":{"domain":[0,1],"automargin":true,"title":[]},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"type":"bar","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"type":"bar","x":["sample 1","sample 2","sample 3","sample 4","sample 5"],"y":[-1.0011100878398556,0.068200408040554938,0.70502624350349619,-0.70423007421601946,0.25598610141373557],"name":"group 1","error_y":{"color":"rgba(102,194,165,1)","array":[0.49580745591391168,1.4712924908613692,0.20066781385800742,1.2008110106294652,0.71254785463886272]},"marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"type":"bar","x":["sample 1","sample 2","sample 3","sample 4","sample 5"],"y":[-0.74905354544327352,-0.76723241255538088,1.3391354149341135,-0.15859280828373767,-0.3479037021133195],"name":"group 2","error_y":{"color":"rgba(141,160,203,1)","array":[0.72069682907213573,0.20708801419612055,0.0048254822835312201,0.78438935700533041,1.8654850865498733]},"marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-29f171e41880cb9f701e" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-29f171e41880cb9f701e">{"x":{"visdat":{"17cbc6ba272a6":["function () ","plotlyVisDat"]},"cur_data":"17cbc6ba272a6","attrs":{"17cbc6ba272a6":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"},"17cbc6ba272a6.1":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","x":["sample 1","sample 2","sample 3","sample 4","sample 5"],"y":[1.1260697928442935,0.7982045264522537,1.4769600334938131,-0.50693518418903238,0.82021617417223947],"name":"group 1","color":"group 1","error_y":{"array":[0.81582899453198332,2.9778279769227827,0.038843446649677642,0.22513700107151449,1.8179275212012023]},"inherit":true},"17cbc6ba272a6.2":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","x":["sample 1","sample 2","sample 3","sample 4","sample 5"],"y":[0.94639016419627298,-0.064363513989150856,-0.43866564697344335,1.5850998986106821,0.54248010691988335],"name":"group 2","color":"group 2","error_y":{"array":[1.5459231132618843,1.1094783427628201,0.34565960060131301,0.77872327138083275,1.1264364817836516]},"inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":[]},"yaxis":{"domain":[0,1],"automargin":true,"title":[]},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"type":"bar","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"type":"bar","x":["sample 1","sample 2","sample 3","sample 4","sample 5"],"y":[1.1260697928442935,0.7982045264522537,1.4769600334938131,-0.50693518418903238,0.82021617417223947],"name":"group 1","error_y":{"color":"rgba(102,194,165,1)","array":[0.81582899453198332,2.9778279769227827,0.038843446649677642,0.22513700107151449,1.8179275212012023]},"marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"type":"bar","x":["sample 1","sample 2","sample 3","sample 4","sample 5"],"y":[0.94639016419627298,-0.064363513989150856,-0.43866564697344335,1.5850998986106821,0.54248010691988335],"name":"group 2","error_y":{"color":"rgba(141,160,203,1)","array":[1.5459231132618843,1.1094783427628201,0.34565960060131301,0.77872327138083275,1.1264364817836516]},"marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 
@@ -320,6 +323,150 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
