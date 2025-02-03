@@ -4,7 +4,7 @@ title: "Datatable Embedded Tables"
 date: "2017-03-06"
 description: "Embedding subtables in datatables"
 categories: ["R", "Javascript"]
-image: index.png
+image: image.png
 ---
 
 Here’s an example of how to embed subtables in a datatable.  It’s an enhancement of the child rows example found at 

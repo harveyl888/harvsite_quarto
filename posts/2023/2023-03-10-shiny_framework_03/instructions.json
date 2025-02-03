@@ -1,0 +1,7 @@
+{
+  "build": "plot",
+  "data": "mtcars",
+  "type": "scatter",
+  "x": "mpg",
+  "y": "wt"
+}
