@@ -8,7 +8,7 @@ image: quarto_02.png
 ---
 
 [Quarto](https://quarto.org/) is the new publishing system from RStudio based on Pandoc.  It's a powerful tool for publising from R, Python and Julia, working in a very similar fashion to RMarkdown.  
-There are several great blog posts already highlighting [features of Quarto](https://www.apreshill.com/blog/2022-04-we-dont-talk-about-quarto/) and [thoughts on changing from RMarkdown to Quarto](https://www.njtierney.com/post/2022/04/11/rmd-to-qmd/).
+There are several great blog posts already highlighting [features of Quarto](https://www.apreshill.com/blog/2022-04-we-dont-talk-about-quarto/) and [thoughts on changing from RMarkdown to Quarto](https://www.njtierney.com/posts/2022/04/11/rmd-to-qmd/).
 
 Recently, I've been building up dynamic documents using child documents.  The aim is to identify the parts of a document (report) required and compile them into a main report as child documents.  I've also started to use Quarto, but can Quarto build a document from a selection of child docs?  The answer is 'yes'.
 

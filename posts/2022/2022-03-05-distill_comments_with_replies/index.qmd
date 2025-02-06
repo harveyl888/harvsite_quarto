@@ -227,7 +227,7 @@ function update_comments_dt(page_id, site_id) {
 
 ## plumber API
 
-As [previously](/post/2022-01-11-distill_comments/), the distill blog pages via a plumber API.  The API contains two endpoints, a POST endpoint, `addcomment_dt` which is used to add a new comment and a GET endpoint, `page_comments_dt` which is used to retrieve comments for a specific page.  The comments are stored in a hierarchical data.tree format which is accessible via the {pins} package.
+As [previously](/posts/2022/2022-01-11-distill_comments/), the distill blog pages via a plumber API.  The API contains two endpoints, a POST endpoint, `addcomment_dt` which is used to add a new comment and a GET endpoint, `page_comments_dt` which is used to retrieve comments for a specific page.  The comments are stored in a hierarchical data.tree format which is accessible via the {pins} package.
 
 In the code below, `board_register("rsconnect", server = "<rsconnect URL>, account = "<account id>", key = connectAPIKey)` registers a pin board which holds a pin called `blog_comment_table+dt`.  *<rsconnect URL>* refers to the RStudio Connect URL and, *<account id>* is the account associated with the pin.  An RStudio Connect API key must be defined and exposed as an environment variable (see below).
 

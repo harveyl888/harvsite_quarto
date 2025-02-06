@@ -12,7 +12,7 @@ Continuing the series on [shiny frameworks](/posts/#category=Shiny%20Framework),
 
 ## Shiny Framework Instructions
 
-As mentioned in [part 1](/posts/2023-02-16-shiny_framework_01/), the concept of a shiny framework is to build an app or its content using instructions.  The instructions are parsed through an interpreter which converts the instructions into code.  Instructions are the soul of the framework.  They can be considered a recipe or lists of steps that are read and executed by an interpreter.  Instructions may be a single sequence of steps which might be used to set up parts of an app, such as defining a consistent UI.  More likely, the instructions are a collection where performs a specific task.  The latter is where the strengths of a framework are realized as this approach is highly flexible and scales quickly compared to a traditional shiny app.
+As mentioned in [part 1](/posts/2023/2023-02-16-shiny_framework_01/), the concept of a shiny framework is to build an app or its content using instructions.  The instructions are parsed through an interpreter which converts the instructions into code.  Instructions are the soul of the framework.  They can be considered a recipe or lists of steps that are read and executed by an interpreter.  Instructions may be a single sequence of steps which might be used to set up parts of an app, such as defining a consistent UI.  More likely, the instructions are a collection where performs a specific task.  The latter is where the strengths of a framework are realized as this approach is highly flexible and scales quickly compared to a traditional shiny app.
 
 ## Instruction Format
 

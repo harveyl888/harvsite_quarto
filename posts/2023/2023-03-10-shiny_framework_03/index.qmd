@@ -12,7 +12,7 @@ Continuing the series on [shiny frameworks](/posts/#category=Shiny%20Framework),
 
 ## Shiny Framework Interpreters
 
-Where [instructions](/posts/2023-03-03-shiny_framework_02/) are the soul of a shiny framework, interpreters are the heart.  An interpreter takes input instructions, parses them and generates an output.  An ideal interpreter should be data agnostic, meaning that it can take multiple, different types of data and work with them accordingly.  The instructions tell the interpreter what to do and how to handle the data.
+Where [instructions](/posts/2023/2023-03-03-shiny_framework_02/) are the soul of a shiny framework, interpreters are the heart.  An interpreter takes input instructions, parses them and generates an output.  An ideal interpreter should be data agnostic, meaning that it can take multiple, different types of data and work with them accordingly.  The instructions tell the interpreter what to do and how to handle the data.
 
 In one simple example below we'll read in an instruction file and parse its contents to build a plot.
 
