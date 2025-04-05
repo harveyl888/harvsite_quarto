@@ -1,0 +1,19 @@
+---
+author: "Harvey"
+title: "Running testthat within covr"
+date: "2025-04-03"
+description: "Returning testthat output from within covr with a custom reporter"
+categories: ["R"]
+draft: true
+---
+
+Tests and test coverage are important aspects when developing packages.  {testthat} is an R package used to build and run tests and {covr} is an R package used to report code coverage, i.e. what percentage of a the code base is covered by tests.  {testthat} will run the tests in a package and report testing results but does not report code coverage, whereas {covr} runs a package tests to calculate coverage but only returns the code coverage, not the test results themselves.  In order to get test output and code coverage both have to be run, which means tests are run twice.  As the number of tests grows this can become time-consuming.
+
+Typically, testing to gather output of tests, along with code coverage, might look something like:
+
+```r
+testthat::test_package(package = "my package", reporter = ListReporter())
+```
+
+There is, however, a way that both may be run together.  By default, the `covr::package_coverage()` runs `tools::testInstalledPackage()` to calculate test coverage, but can use an alternative testing approach with the following syntax: `covr::package_coverage(type = "none", code = "my code")` where **my code** is the code run to perform the tests.  By creating a user-defined reporter that sends output to a temporary files, `covr::package_coverage()` may be used to run both code coverage and return test output together.
+
