@@ -17,3 +17,130 @@ testthat::test_package(package = "my package", reporter = ListReporter())
 
 There is, however, a way that both may be run together.  By default, the `covr::package_coverage()` runs `tools::testInstalledPackage()` to calculate test coverage, but can use an alternative testing approach with the following syntax: `covr::package_coverage(type = "none", code = "my code")` where **my code** is the code run to perform the tests.  By creating a user-defined reporter that sends output to a temporary files, `covr::package_coverage()` may be used to run both code coverage and return test output together.
 
+### Custom Reporter
+
+```r
+# Define a custom reporter
+JSONReporter <- R6::R6Class( # nocov start
+  "JSONReporter",
+  inherit = testthat::Reporter,
+  public = list(
+    results = list(),
+    current_file = NULL,
+    current_test = NULL,
+    output_file = NULL,
+
+    # Additional $new()
+    initialize = function(file = NULL, ...) {
+      super$initialize(...)
+      self$output_file = file
+    },
+
+    # Called when a new file starts
+    start_file = function(file) {
+      self$current_file <- file
+    },
+
+    # Called when a new test starts
+    start_test = function(context, test) {
+      self$current_test <- test
+    },
+
+    # Called when a test result is added
+    add_result = function(context, test, result) {
+      self$results <- append(self$results, list(list(
+        filename = self$current_file,
+        test_name = self$current_test,
+        pass = inherits(result, "expectation_success"),
+        message = result$message
+      )))
+    },
+
+    # Called at the end of the test run
+    end_reporter = function() {
+      # Save results to a JSON file
+      if (is.null(self$output_file)) {
+        self$output_file <- "test_results.json"
+      }
+      jsonlite::write_json(self$results, self$output_file, pretty = TRUE, auto_unbox = TRUE)
+      message("Test results saved to: ", self$output_file)
+    }
+  )
+) # nocov end
+```
+
+The custom reporter is an R6 class to hold test results.  Upon initializing it can take the name of a json file which will be used to store test results.  If no file is provided then test results will be stored in `test_results.json`.  As each test is run, results are appended to `self$results`using the `add_result` method.  This method also checks for existence of `expectation_success` in the result and sets a the `$pass` boolean parameter to reflect the pass/fail response.  Once all tests are completed, the results are written to the json file.  
+The `# nocov start` and `# nocov end` statements simply indicate that the lines between them should be excempt from test coverage determination.
+
+When testthat is run using `covr::package_coverage()` along with the custom reporter, tests are only run once.  The function returns the result of test coverage and the json file holds the test results.
+
+The function may be run as follows:
+
+```r
+covr::package_coverage(type = "none", code = "testthat::test_package('my package', reporter = JSONReporter$new(file = 'test_results.json'), stop_on_warning = FALSE, stop_on_failure = FALSE)")
+```
+
+## Testing the Approach
+
+To test, let's create a simple function that takes 5 seconds to run:
+
+```r
+myFunction <- function(a = NULL) {
+  Sys.sleep(5)
+  return(a)
+}
+```
+
+along with a test that should pass without a problem:
+
+```r
+test_that("my function works", {
+  expect_equal(myFunction("A"), "A")
+})
+```
+
+Executing `testthat::test_local()` takes approximately 5.5 seconds to run.  Running `covr::package_coverage()` takes an additional 15 seconds.  This leads to a total time of just over 20 seconds.
+
+Running `covr::package_coverage(type = "none", code = "testthat::test_local(reporter = JSONReporter$new(file = 'test_results.json'), stop_on_warning = FALSE, stop_on_failure = FALSE)")` takes 15 seconds, returning package coverage along with the json file with the following contents:
+
+```json
+[
+  {
+    "filename": "test-my_function.R",
+    "test_name": "my function works",
+    "pass": true,
+    "message": "myFunction(\"A\") (`actual`) not equal to \"A\" (`expected`).\n\n"
+  }
+]
+```
+
+Both the coverage and test results may be parsed and returned using the following approach:
+
+```r
+coverage_and_tests <- function() {
+  tmp_file_test <- tempfile(fileext = ".json")
+  coverage_raw <- covr::package_coverage(system.file(package = "testPackage"), type = 'none', code = glue::glue('testthat::test_package("testPackage", reporter = JSONReporter$new(file = "{tmp_file_test}"), stop_on_warning = FALSE, stop_on_failure = FALSE)'))
+  coverage <- capture.output(coverage_raw, type = "message")
+  df_tests <- jsonlite::read_json(tmp_file_test, simplifyVector = TRUE)
+  unlink(tmp_file_test)
+  df_coverage <- data.frame(
+    file = sub(":.*", "", coverage),
+    coverage = sub(".*: ([0-9.]+)%", "\\1", coverage)
+  )
+  return(list(coverage = df_coverage, tests = df_tests))
+}
+```
+
+leading to the following output:
+
+```r
+coverage_and_tests()
+$coverage
+                  file coverage
+1 testPackage Coverage   100.00
+2      R/my_function.R   100.00
+
+$tests
+            filename         test_name pass                                                        message
+1 test-my_function.R my function works TRUE  myFunction("A") (`actual`) not equal to "A" (`expected`).\n\n
+```
