@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -24,8 +24,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -36,7 +37,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -66,17 +67,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
-<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-4784f2bdd77d1d23fe03cd773dacae73.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-dark-4b9f7a5af56d98c1800fd0d99de1a585.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-951d530066a765b0cdab471062cfb74b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-5b75db0b2cd4b13a51f287f529ac0dde.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-951d530066a765b0cdab471062cfb74b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -109,7 +113,169 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -199,6 +365,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
+
 
 
 
@@ -365,23 +532,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ref =</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), <span class="at">data =</span> <span class="fu">c</span>(<span class="st">"badge_1"</span>, <span class="st">"badge_2"</span>, <span class="st">"badge_1"</span>, <span class="cn">NA</span>, <span class="st">"badge_3"</span>))</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> gt<span class="sc">::</span><span class="fu">gt</span>() <span class="sc">|&gt;</span> <span class="fu">gt_badge</span>(data, <span class="at">palette =</span> <span class="fu">c</span>(<span class="at">badge_1 =</span> <span class="st">"#990000"</span>, <span class="at">badge_2 =</span> <span class="st">"#009900"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="sptrhplnzh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#sptrhplnzh table {
+<div id="wgeprryioo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wgeprryioo table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#sptrhplnzh thead, #sptrhplnzh tbody, #sptrhplnzh tfoot, #sptrhplnzh tr, #sptrhplnzh td, #sptrhplnzh th {
+#wgeprryioo thead, #wgeprryioo tbody, #wgeprryioo tfoot, #wgeprryioo tr, #wgeprryioo td, #wgeprryioo th {
   border-style: none;
 }
 
-#sptrhplnzh p {
+#wgeprryioo p {
   margin: 0;
   padding: 0;
 }
 
-#sptrhplnzh .gt_table {
+#wgeprryioo .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -407,12 +574,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#sptrhplnzh .gt_caption {
+#wgeprryioo .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#sptrhplnzh .gt_title {
+#wgeprryioo .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -424,7 +591,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#sptrhplnzh .gt_subtitle {
+#wgeprryioo .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -436,7 +603,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#sptrhplnzh .gt_heading {
+#wgeprryioo .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -448,13 +615,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#sptrhplnzh .gt_bottom_border {
+#wgeprryioo .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#sptrhplnzh .gt_col_headings {
+#wgeprryioo .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -469,7 +636,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#sptrhplnzh .gt_col_heading {
+#wgeprryioo .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -489,7 +656,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#sptrhplnzh .gt_column_spanner_outer {
+#wgeprryioo .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -501,15 +668,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#sptrhplnzh .gt_column_spanner_outer:first-child {
+#wgeprryioo .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#sptrhplnzh .gt_column_spanner_outer:last-child {
+#wgeprryioo .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#sptrhplnzh .gt_column_spanner {
+#wgeprryioo .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -521,11 +688,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#sptrhplnzh .gt_spanner_row {
+#wgeprryioo .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#sptrhplnzh .gt_group_heading {
+#wgeprryioo .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -551,7 +718,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#sptrhplnzh .gt_empty_group_heading {
+#wgeprryioo .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -566,15 +733,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#sptrhplnzh .gt_from_md > :first-child {
+#wgeprryioo .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#sptrhplnzh .gt_from_md > :last-child {
+#wgeprryioo .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#sptrhplnzh .gt_row {
+#wgeprryioo .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -593,7 +760,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#sptrhplnzh .gt_stub {
+#wgeprryioo .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -606,7 +773,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#sptrhplnzh .gt_stub_row_group {
+#wgeprryioo .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -620,15 +787,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#sptrhplnzh .gt_row_group_first td {
+#wgeprryioo .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#sptrhplnzh .gt_row_group_first th {
+#wgeprryioo .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#sptrhplnzh .gt_summary_row {
+#wgeprryioo .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -638,16 +805,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#sptrhplnzh .gt_first_summary_row {
+#wgeprryioo .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#sptrhplnzh .gt_first_summary_row.thick {
+#wgeprryioo .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#sptrhplnzh .gt_last_summary_row {
+#wgeprryioo .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -657,7 +824,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#sptrhplnzh .gt_grand_summary_row {
+#wgeprryioo .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -667,7 +834,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#sptrhplnzh .gt_first_grand_summary_row {
+#wgeprryioo .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -677,7 +844,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#sptrhplnzh .gt_last_grand_summary_row_top {
+#wgeprryioo .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -687,11 +854,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#sptrhplnzh .gt_striped {
+#wgeprryioo .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#sptrhplnzh .gt_table_body {
+#wgeprryioo .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -700,7 +867,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#sptrhplnzh .gt_footnotes {
+#wgeprryioo .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -714,7 +881,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#sptrhplnzh .gt_footnote {
+#wgeprryioo .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -723,7 +890,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#sptrhplnzh .gt_sourcenotes {
+#wgeprryioo .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -737,7 +904,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#sptrhplnzh .gt_sourcenote {
+#wgeprryioo .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -745,72 +912,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#sptrhplnzh .gt_left {
+#wgeprryioo .gt_left {
   text-align: left;
 }
 
-#sptrhplnzh .gt_center {
+#wgeprryioo .gt_center {
   text-align: center;
 }
 
-#sptrhplnzh .gt_right {
+#wgeprryioo .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#sptrhplnzh .gt_font_normal {
+#wgeprryioo .gt_font_normal {
   font-weight: normal;
 }
 
-#sptrhplnzh .gt_font_bold {
+#wgeprryioo .gt_font_bold {
   font-weight: bold;
 }
 
-#sptrhplnzh .gt_font_italic {
+#wgeprryioo .gt_font_italic {
   font-style: italic;
 }
 
-#sptrhplnzh .gt_super {
+#wgeprryioo .gt_super {
   font-size: 65%;
 }
 
-#sptrhplnzh .gt_footnote_marks {
+#wgeprryioo .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#sptrhplnzh .gt_asterisk {
+#wgeprryioo .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#sptrhplnzh .gt_indent_1 {
+#wgeprryioo .gt_indent_1 {
   text-indent: 5px;
 }
 
-#sptrhplnzh .gt_indent_2 {
+#wgeprryioo .gt_indent_2 {
   text-indent: 10px;
 }
 
-#sptrhplnzh .gt_indent_3 {
+#wgeprryioo .gt_indent_3 {
   text-indent: 15px;
 }
 
-#sptrhplnzh .gt_indent_4 {
+#wgeprryioo .gt_indent_4 {
   text-indent: 20px;
 }
 
-#sptrhplnzh .gt_indent_5 {
+#wgeprryioo .gt_indent_5 {
   text-indent: 25px;
 }
 
-#sptrhplnzh .katex-display {
+#wgeprryioo .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#sptrhplnzh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#wgeprryioo div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 
@@ -920,23 +1087,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ref =</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), <span class="at">data =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">NA</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>))</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> gt<span class="sc">::</span><span class="fu">gt</span>() <span class="sc">|&gt;</span> <span class="fu">gt_alert</span>(data, <span class="at">invert =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="tiffoyfpjm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#tiffoyfpjm table {
+<div id="abhelfsyiw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#abhelfsyiw table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#tiffoyfpjm thead, #tiffoyfpjm tbody, #tiffoyfpjm tfoot, #tiffoyfpjm tr, #tiffoyfpjm td, #tiffoyfpjm th {
+#abhelfsyiw thead, #abhelfsyiw tbody, #abhelfsyiw tfoot, #abhelfsyiw tr, #abhelfsyiw td, #abhelfsyiw th {
   border-style: none;
 }
 
-#tiffoyfpjm p {
+#abhelfsyiw p {
   margin: 0;
   padding: 0;
 }
 
-#tiffoyfpjm .gt_table {
+#abhelfsyiw .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -962,12 +1129,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#tiffoyfpjm .gt_caption {
+#abhelfsyiw .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#tiffoyfpjm .gt_title {
+#abhelfsyiw .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -979,7 +1146,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#tiffoyfpjm .gt_subtitle {
+#abhelfsyiw .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -991,7 +1158,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#tiffoyfpjm .gt_heading {
+#abhelfsyiw .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1003,13 +1170,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#tiffoyfpjm .gt_bottom_border {
+#abhelfsyiw .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#tiffoyfpjm .gt_col_headings {
+#abhelfsyiw .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1024,7 +1191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#tiffoyfpjm .gt_col_heading {
+#abhelfsyiw .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1044,7 +1211,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#tiffoyfpjm .gt_column_spanner_outer {
+#abhelfsyiw .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1056,15 +1223,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#tiffoyfpjm .gt_column_spanner_outer:first-child {
+#abhelfsyiw .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#tiffoyfpjm .gt_column_spanner_outer:last-child {
+#abhelfsyiw .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#tiffoyfpjm .gt_column_spanner {
+#abhelfsyiw .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1076,11 +1243,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#tiffoyfpjm .gt_spanner_row {
+#abhelfsyiw .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#tiffoyfpjm .gt_group_heading {
+#abhelfsyiw .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1106,7 +1273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#tiffoyfpjm .gt_empty_group_heading {
+#abhelfsyiw .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1121,15 +1288,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#tiffoyfpjm .gt_from_md > :first-child {
+#abhelfsyiw .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#tiffoyfpjm .gt_from_md > :last-child {
+#abhelfsyiw .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#tiffoyfpjm .gt_row {
+#abhelfsyiw .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1148,7 +1315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#tiffoyfpjm .gt_stub {
+#abhelfsyiw .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1161,7 +1328,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#tiffoyfpjm .gt_stub_row_group {
+#abhelfsyiw .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1175,15 +1342,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#tiffoyfpjm .gt_row_group_first td {
+#abhelfsyiw .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#tiffoyfpjm .gt_row_group_first th {
+#abhelfsyiw .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#tiffoyfpjm .gt_summary_row {
+#abhelfsyiw .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1193,16 +1360,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#tiffoyfpjm .gt_first_summary_row {
+#abhelfsyiw .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#tiffoyfpjm .gt_first_summary_row.thick {
+#abhelfsyiw .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#tiffoyfpjm .gt_last_summary_row {
+#abhelfsyiw .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1212,7 +1379,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#tiffoyfpjm .gt_grand_summary_row {
+#abhelfsyiw .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1222,7 +1389,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#tiffoyfpjm .gt_first_grand_summary_row {
+#abhelfsyiw .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1232,7 +1399,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#tiffoyfpjm .gt_last_grand_summary_row_top {
+#abhelfsyiw .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1242,11 +1409,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#tiffoyfpjm .gt_striped {
+#abhelfsyiw .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#tiffoyfpjm .gt_table_body {
+#abhelfsyiw .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1255,7 +1422,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#tiffoyfpjm .gt_footnotes {
+#abhelfsyiw .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1269,7 +1436,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#tiffoyfpjm .gt_footnote {
+#abhelfsyiw .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1278,7 +1445,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#tiffoyfpjm .gt_sourcenotes {
+#abhelfsyiw .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1292,7 +1459,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#tiffoyfpjm .gt_sourcenote {
+#abhelfsyiw .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1300,72 +1467,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#tiffoyfpjm .gt_left {
+#abhelfsyiw .gt_left {
   text-align: left;
 }
 
-#tiffoyfpjm .gt_center {
+#abhelfsyiw .gt_center {
   text-align: center;
 }
 
-#tiffoyfpjm .gt_right {
+#abhelfsyiw .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#tiffoyfpjm .gt_font_normal {
+#abhelfsyiw .gt_font_normal {
   font-weight: normal;
 }
 
-#tiffoyfpjm .gt_font_bold {
+#abhelfsyiw .gt_font_bold {
   font-weight: bold;
 }
 
-#tiffoyfpjm .gt_font_italic {
+#abhelfsyiw .gt_font_italic {
   font-style: italic;
 }
 
-#tiffoyfpjm .gt_super {
+#abhelfsyiw .gt_super {
   font-size: 65%;
 }
 
-#tiffoyfpjm .gt_footnote_marks {
+#abhelfsyiw .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#tiffoyfpjm .gt_asterisk {
+#abhelfsyiw .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#tiffoyfpjm .gt_indent_1 {
+#abhelfsyiw .gt_indent_1 {
   text-indent: 5px;
 }
 
-#tiffoyfpjm .gt_indent_2 {
+#abhelfsyiw .gt_indent_2 {
   text-indent: 10px;
 }
 
-#tiffoyfpjm .gt_indent_3 {
+#abhelfsyiw .gt_indent_3 {
   text-indent: 15px;
 }
 
-#tiffoyfpjm .gt_indent_4 {
+#abhelfsyiw .gt_indent_4 {
   text-indent: 20px;
 }
 
-#tiffoyfpjm .gt_indent_5 {
+#abhelfsyiw .gt_indent_5 {
   text-indent: 25px;
 }
 
-#tiffoyfpjm .katex-display {
+#abhelfsyiw .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#tiffoyfpjm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#abhelfsyiw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1540,23 +1707,23 @@ Tooltips in Quarto
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ref =</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), <span class="at">data =</span> <span class="fu">c</span>(<span class="st">"p1,p2"</span>, <span class="st">"p1"</span>, <span class="cn">NA</span>, <span class="st">"p3"</span>, <span class="st">"p2,p3"</span>))</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> gt<span class="sc">::</span><span class="fu">gt</span>() <span class="sc">|&gt;</span> <span class="fu">gt_dots</span>(data, <span class="at">items =</span> <span class="fu">c</span>(<span class="st">"p1"</span>, <span class="st">"p2"</span>, <span class="st">"p3"</span>, <span class="st">"p4"</span>), <span class="at">sep =</span> <span class="st">","</span>, <span class="at">tooltip =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="zulohvttoh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#zulohvttoh table {
+<div id="gerwzequon" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#gerwzequon table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#zulohvttoh thead, #zulohvttoh tbody, #zulohvttoh tfoot, #zulohvttoh tr, #zulohvttoh td, #zulohvttoh th {
+#gerwzequon thead, #gerwzequon tbody, #gerwzequon tfoot, #gerwzequon tr, #gerwzequon td, #gerwzequon th {
   border-style: none;
 }
 
-#zulohvttoh p {
+#gerwzequon p {
   margin: 0;
   padding: 0;
 }
 
-#zulohvttoh .gt_table {
+#gerwzequon .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1582,12 +1749,12 @@ Tooltips in Quarto
   border-left-color: #D3D3D3;
 }
 
-#zulohvttoh .gt_caption {
+#gerwzequon .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#zulohvttoh .gt_title {
+#gerwzequon .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1599,7 +1766,7 @@ Tooltips in Quarto
   border-bottom-width: 0;
 }
 
-#zulohvttoh .gt_subtitle {
+#gerwzequon .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1611,7 +1778,7 @@ Tooltips in Quarto
   border-top-width: 0;
 }
 
-#zulohvttoh .gt_heading {
+#gerwzequon .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1623,13 +1790,13 @@ Tooltips in Quarto
   border-right-color: #D3D3D3;
 }
 
-#zulohvttoh .gt_bottom_border {
+#gerwzequon .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zulohvttoh .gt_col_headings {
+#gerwzequon .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1644,7 +1811,7 @@ Tooltips in Quarto
   border-right-color: #D3D3D3;
 }
 
-#zulohvttoh .gt_col_heading {
+#gerwzequon .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1664,7 +1831,7 @@ Tooltips in Quarto
   overflow-x: hidden;
 }
 
-#zulohvttoh .gt_column_spanner_outer {
+#gerwzequon .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1676,15 +1843,15 @@ Tooltips in Quarto
   padding-right: 4px;
 }
 
-#zulohvttoh .gt_column_spanner_outer:first-child {
+#gerwzequon .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zulohvttoh .gt_column_spanner_outer:last-child {
+#gerwzequon .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zulohvttoh .gt_column_spanner {
+#gerwzequon .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1696,11 +1863,11 @@ Tooltips in Quarto
   width: 100%;
 }
 
-#zulohvttoh .gt_spanner_row {
+#gerwzequon .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#zulohvttoh .gt_group_heading {
+#gerwzequon .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1726,7 +1893,7 @@ Tooltips in Quarto
   text-align: left;
 }
 
-#zulohvttoh .gt_empty_group_heading {
+#gerwzequon .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1741,15 +1908,15 @@ Tooltips in Quarto
   vertical-align: middle;
 }
 
-#zulohvttoh .gt_from_md > :first-child {
+#gerwzequon .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zulohvttoh .gt_from_md > :last-child {
+#gerwzequon .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zulohvttoh .gt_row {
+#gerwzequon .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1768,7 +1935,7 @@ Tooltips in Quarto
   overflow-x: hidden;
 }
 
-#zulohvttoh .gt_stub {
+#gerwzequon .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1781,7 +1948,7 @@ Tooltips in Quarto
   padding-right: 5px;
 }
 
-#zulohvttoh .gt_stub_row_group {
+#gerwzequon .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1795,15 +1962,15 @@ Tooltips in Quarto
   vertical-align: top;
 }
 
-#zulohvttoh .gt_row_group_first td {
+#gerwzequon .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zulohvttoh .gt_row_group_first th {
+#gerwzequon .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#zulohvttoh .gt_summary_row {
+#gerwzequon .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1813,16 +1980,16 @@ Tooltips in Quarto
   padding-right: 5px;
 }
 
-#zulohvttoh .gt_first_summary_row {
+#gerwzequon .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zulohvttoh .gt_first_summary_row.thick {
+#gerwzequon .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zulohvttoh .gt_last_summary_row {
+#gerwzequon .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1832,7 +1999,7 @@ Tooltips in Quarto
   border-bottom-color: #D3D3D3;
 }
 
-#zulohvttoh .gt_grand_summary_row {
+#gerwzequon .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1842,7 +2009,7 @@ Tooltips in Quarto
   padding-right: 5px;
 }
 
-#zulohvttoh .gt_first_grand_summary_row {
+#gerwzequon .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1852,7 +2019,7 @@ Tooltips in Quarto
   border-top-color: #D3D3D3;
 }
 
-#zulohvttoh .gt_last_grand_summary_row_top {
+#gerwzequon .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1862,11 +2029,11 @@ Tooltips in Quarto
   border-bottom-color: #D3D3D3;
 }
 
-#zulohvttoh .gt_striped {
+#gerwzequon .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zulohvttoh .gt_table_body {
+#gerwzequon .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1875,7 +2042,7 @@ Tooltips in Quarto
   border-bottom-color: #D3D3D3;
 }
 
-#zulohvttoh .gt_footnotes {
+#gerwzequon .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1889,7 +2056,7 @@ Tooltips in Quarto
   border-right-color: #D3D3D3;
 }
 
-#zulohvttoh .gt_footnote {
+#gerwzequon .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1898,7 +2065,7 @@ Tooltips in Quarto
   padding-right: 5px;
 }
 
-#zulohvttoh .gt_sourcenotes {
+#gerwzequon .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1912,7 +2079,7 @@ Tooltips in Quarto
   border-right-color: #D3D3D3;
 }
 
-#zulohvttoh .gt_sourcenote {
+#gerwzequon .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1920,72 +2087,72 @@ Tooltips in Quarto
   padding-right: 5px;
 }
 
-#zulohvttoh .gt_left {
+#gerwzequon .gt_left {
   text-align: left;
 }
 
-#zulohvttoh .gt_center {
+#gerwzequon .gt_center {
   text-align: center;
 }
 
-#zulohvttoh .gt_right {
+#gerwzequon .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zulohvttoh .gt_font_normal {
+#gerwzequon .gt_font_normal {
   font-weight: normal;
 }
 
-#zulohvttoh .gt_font_bold {
+#gerwzequon .gt_font_bold {
   font-weight: bold;
 }
 
-#zulohvttoh .gt_font_italic {
+#gerwzequon .gt_font_italic {
   font-style: italic;
 }
 
-#zulohvttoh .gt_super {
+#gerwzequon .gt_super {
   font-size: 65%;
 }
 
-#zulohvttoh .gt_footnote_marks {
+#gerwzequon .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#zulohvttoh .gt_asterisk {
+#gerwzequon .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zulohvttoh .gt_indent_1 {
+#gerwzequon .gt_indent_1 {
   text-indent: 5px;
 }
 
-#zulohvttoh .gt_indent_2 {
+#gerwzequon .gt_indent_2 {
   text-indent: 10px;
 }
 
-#zulohvttoh .gt_indent_3 {
+#gerwzequon .gt_indent_3 {
   text-indent: 15px;
 }
 
-#zulohvttoh .gt_indent_4 {
+#gerwzequon .gt_indent_4 {
   text-indent: 20px;
 }
 
-#zulohvttoh .gt_indent_5 {
+#gerwzequon .gt_indent_5 {
   text-indent: 25px;
 }
 
-#zulohvttoh .katex-display {
+#gerwzequon .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#zulohvttoh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#gerwzequon div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2213,23 +2380,23 @@ Tooltips in Quarto
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">name =</span> <span class="fu">c</span>(<span class="st">"Name 1"</span>, <span class="st">"Name 2"</span>), <span class="at">title =</span> <span class="fu">c</span>(<span class="st">"VP"</span>, <span class="st">"Chair"</span>), <span class="at">gp =</span> <span class="fu">c</span>(<span class="st">"AAA"</span>, <span class="st">"AAA"</span>), <span class="at">tt =</span> <span class="fu">c</span>(<span class="st">"First Person"</span>, <span class="st">"Second Person"</span>))</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> gt<span class="sc">::</span><span class="fu">gt</span>() <span class="sc">|&gt;</span> <span class="fu">gt_subtitle</span>(<span class="at">col_title =</span> name, <span class="at">col_subtitle =</span> title, <span class="at">col_parenthesis =</span> gp, <span class="at">col_tootlip =</span> tt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="lbtydmbctl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lbtydmbctl table {
+<div id="noekshumcg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#noekshumcg table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lbtydmbctl thead, #lbtydmbctl tbody, #lbtydmbctl tfoot, #lbtydmbctl tr, #lbtydmbctl td, #lbtydmbctl th {
+#noekshumcg thead, #noekshumcg tbody, #noekshumcg tfoot, #noekshumcg tr, #noekshumcg td, #noekshumcg th {
   border-style: none;
 }
 
-#lbtydmbctl p {
+#noekshumcg p {
   margin: 0;
   padding: 0;
 }
 
-#lbtydmbctl .gt_table {
+#noekshumcg .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2255,12 +2422,12 @@ Tooltips in Quarto
   border-left-color: #D3D3D3;
 }
 
-#lbtydmbctl .gt_caption {
+#noekshumcg .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lbtydmbctl .gt_title {
+#noekshumcg .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2272,7 +2439,7 @@ Tooltips in Quarto
   border-bottom-width: 0;
 }
 
-#lbtydmbctl .gt_subtitle {
+#noekshumcg .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2284,7 +2451,7 @@ Tooltips in Quarto
   border-top-width: 0;
 }
 
-#lbtydmbctl .gt_heading {
+#noekshumcg .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2296,13 +2463,13 @@ Tooltips in Quarto
   border-right-color: #D3D3D3;
 }
 
-#lbtydmbctl .gt_bottom_border {
+#noekshumcg .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lbtydmbctl .gt_col_headings {
+#noekshumcg .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2317,7 +2484,7 @@ Tooltips in Quarto
   border-right-color: #D3D3D3;
 }
 
-#lbtydmbctl .gt_col_heading {
+#noekshumcg .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2337,7 +2504,7 @@ Tooltips in Quarto
   overflow-x: hidden;
 }
 
-#lbtydmbctl .gt_column_spanner_outer {
+#noekshumcg .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2349,15 +2516,15 @@ Tooltips in Quarto
   padding-right: 4px;
 }
 
-#lbtydmbctl .gt_column_spanner_outer:first-child {
+#noekshumcg .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lbtydmbctl .gt_column_spanner_outer:last-child {
+#noekshumcg .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lbtydmbctl .gt_column_spanner {
+#noekshumcg .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2369,11 +2536,11 @@ Tooltips in Quarto
   width: 100%;
 }
 
-#lbtydmbctl .gt_spanner_row {
+#noekshumcg .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lbtydmbctl .gt_group_heading {
+#noekshumcg .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2399,7 +2566,7 @@ Tooltips in Quarto
   text-align: left;
 }
 
-#lbtydmbctl .gt_empty_group_heading {
+#noekshumcg .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2414,15 +2581,15 @@ Tooltips in Quarto
   vertical-align: middle;
 }
 
-#lbtydmbctl .gt_from_md > :first-child {
+#noekshumcg .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lbtydmbctl .gt_from_md > :last-child {
+#noekshumcg .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lbtydmbctl .gt_row {
+#noekshumcg .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2441,7 +2608,7 @@ Tooltips in Quarto
   overflow-x: hidden;
 }
 
-#lbtydmbctl .gt_stub {
+#noekshumcg .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2454,7 +2621,7 @@ Tooltips in Quarto
   padding-right: 5px;
 }
 
-#lbtydmbctl .gt_stub_row_group {
+#noekshumcg .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2468,15 +2635,15 @@ Tooltips in Quarto
   vertical-align: top;
 }
 
-#lbtydmbctl .gt_row_group_first td {
+#noekshumcg .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lbtydmbctl .gt_row_group_first th {
+#noekshumcg .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lbtydmbctl .gt_summary_row {
+#noekshumcg .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2486,16 +2653,16 @@ Tooltips in Quarto
   padding-right: 5px;
 }
 
-#lbtydmbctl .gt_first_summary_row {
+#noekshumcg .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lbtydmbctl .gt_first_summary_row.thick {
+#noekshumcg .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lbtydmbctl .gt_last_summary_row {
+#noekshumcg .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2505,7 +2672,7 @@ Tooltips in Quarto
   border-bottom-color: #D3D3D3;
 }
 
-#lbtydmbctl .gt_grand_summary_row {
+#noekshumcg .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2515,7 +2682,7 @@ Tooltips in Quarto
   padding-right: 5px;
 }
 
-#lbtydmbctl .gt_first_grand_summary_row {
+#noekshumcg .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2525,7 +2692,7 @@ Tooltips in Quarto
   border-top-color: #D3D3D3;
 }
 
-#lbtydmbctl .gt_last_grand_summary_row_top {
+#noekshumcg .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2535,11 +2702,11 @@ Tooltips in Quarto
   border-bottom-color: #D3D3D3;
 }
 
-#lbtydmbctl .gt_striped {
+#noekshumcg .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lbtydmbctl .gt_table_body {
+#noekshumcg .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2548,7 +2715,7 @@ Tooltips in Quarto
   border-bottom-color: #D3D3D3;
 }
 
-#lbtydmbctl .gt_footnotes {
+#noekshumcg .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2562,7 +2729,7 @@ Tooltips in Quarto
   border-right-color: #D3D3D3;
 }
 
-#lbtydmbctl .gt_footnote {
+#noekshumcg .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2571,7 +2738,7 @@ Tooltips in Quarto
   padding-right: 5px;
 }
 
-#lbtydmbctl .gt_sourcenotes {
+#noekshumcg .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2585,7 +2752,7 @@ Tooltips in Quarto
   border-right-color: #D3D3D3;
 }
 
-#lbtydmbctl .gt_sourcenote {
+#noekshumcg .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2593,72 +2760,72 @@ Tooltips in Quarto
   padding-right: 5px;
 }
 
-#lbtydmbctl .gt_left {
+#noekshumcg .gt_left {
   text-align: left;
 }
 
-#lbtydmbctl .gt_center {
+#noekshumcg .gt_center {
   text-align: center;
 }
 
-#lbtydmbctl .gt_right {
+#noekshumcg .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lbtydmbctl .gt_font_normal {
+#noekshumcg .gt_font_normal {
   font-weight: normal;
 }
 
-#lbtydmbctl .gt_font_bold {
+#noekshumcg .gt_font_bold {
   font-weight: bold;
 }
 
-#lbtydmbctl .gt_font_italic {
+#noekshumcg .gt_font_italic {
   font-style: italic;
 }
 
-#lbtydmbctl .gt_super {
+#noekshumcg .gt_super {
   font-size: 65%;
 }
 
-#lbtydmbctl .gt_footnote_marks {
+#noekshumcg .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lbtydmbctl .gt_asterisk {
+#noekshumcg .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lbtydmbctl .gt_indent_1 {
+#noekshumcg .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lbtydmbctl .gt_indent_2 {
+#noekshumcg .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lbtydmbctl .gt_indent_3 {
+#noekshumcg .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lbtydmbctl .gt_indent_4 {
+#noekshumcg .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lbtydmbctl .gt_indent_5 {
+#noekshumcg .gt_indent_5 {
   text-indent: 25px;
 }
 
-#lbtydmbctl .katex-display {
+#noekshumcg .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#lbtydmbctl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#noekshumcg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 
@@ -2870,23 +3037,23 @@ Tooltips in Quarto
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> gt<span class="sc">::</span><span class="fu">gt</span>() <span class="sc">|&gt;</span> <span class="fu">gt_timeline</span>(dates, <span class="at">min_date =</span> <span class="st">"2024-10-01"</span>, <span class="at">max_date =</span> <span class="st">"2024-12-31"</span>, <span class="at">palette =</span> <span class="fu">c</span>(<span class="at">start =</span> <span class="st">"#00AA00"</span>, <span class="at">end =</span> <span class="st">"#AA0000"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="edjkvsbbsf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#edjkvsbbsf table {
+<div id="ztuutlfoia" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ztuutlfoia table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#edjkvsbbsf thead, #edjkvsbbsf tbody, #edjkvsbbsf tfoot, #edjkvsbbsf tr, #edjkvsbbsf td, #edjkvsbbsf th {
+#ztuutlfoia thead, #ztuutlfoia tbody, #ztuutlfoia tfoot, #ztuutlfoia tr, #ztuutlfoia td, #ztuutlfoia th {
   border-style: none;
 }
 
-#edjkvsbbsf p {
+#ztuutlfoia p {
   margin: 0;
   padding: 0;
 }
 
-#edjkvsbbsf .gt_table {
+#ztuutlfoia .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2912,12 +3079,12 @@ Tooltips in Quarto
   border-left-color: #D3D3D3;
 }
 
-#edjkvsbbsf .gt_caption {
+#ztuutlfoia .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#edjkvsbbsf .gt_title {
+#ztuutlfoia .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2929,7 +3096,7 @@ Tooltips in Quarto
   border-bottom-width: 0;
 }
 
-#edjkvsbbsf .gt_subtitle {
+#ztuutlfoia .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2941,7 +3108,7 @@ Tooltips in Quarto
   border-top-width: 0;
 }
 
-#edjkvsbbsf .gt_heading {
+#ztuutlfoia .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2953,13 +3120,13 @@ Tooltips in Quarto
   border-right-color: #D3D3D3;
 }
 
-#edjkvsbbsf .gt_bottom_border {
+#ztuutlfoia .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#edjkvsbbsf .gt_col_headings {
+#ztuutlfoia .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2974,7 +3141,7 @@ Tooltips in Quarto
   border-right-color: #D3D3D3;
 }
 
-#edjkvsbbsf .gt_col_heading {
+#ztuutlfoia .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2994,7 +3161,7 @@ Tooltips in Quarto
   overflow-x: hidden;
 }
 
-#edjkvsbbsf .gt_column_spanner_outer {
+#ztuutlfoia .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3006,15 +3173,15 @@ Tooltips in Quarto
   padding-right: 4px;
 }
 
-#edjkvsbbsf .gt_column_spanner_outer:first-child {
+#ztuutlfoia .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#edjkvsbbsf .gt_column_spanner_outer:last-child {
+#ztuutlfoia .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#edjkvsbbsf .gt_column_spanner {
+#ztuutlfoia .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3026,11 +3193,11 @@ Tooltips in Quarto
   width: 100%;
 }
 
-#edjkvsbbsf .gt_spanner_row {
+#ztuutlfoia .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#edjkvsbbsf .gt_group_heading {
+#ztuutlfoia .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3056,7 +3223,7 @@ Tooltips in Quarto
   text-align: left;
 }
 
-#edjkvsbbsf .gt_empty_group_heading {
+#ztuutlfoia .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3071,15 +3238,15 @@ Tooltips in Quarto
   vertical-align: middle;
 }
 
-#edjkvsbbsf .gt_from_md > :first-child {
+#ztuutlfoia .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#edjkvsbbsf .gt_from_md > :last-child {
+#ztuutlfoia .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#edjkvsbbsf .gt_row {
+#ztuutlfoia .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3098,7 +3265,7 @@ Tooltips in Quarto
   overflow-x: hidden;
 }
 
-#edjkvsbbsf .gt_stub {
+#ztuutlfoia .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3111,7 +3278,7 @@ Tooltips in Quarto
   padding-right: 5px;
 }
 
-#edjkvsbbsf .gt_stub_row_group {
+#ztuutlfoia .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3125,15 +3292,15 @@ Tooltips in Quarto
   vertical-align: top;
 }
 
-#edjkvsbbsf .gt_row_group_first td {
+#ztuutlfoia .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#edjkvsbbsf .gt_row_group_first th {
+#ztuutlfoia .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#edjkvsbbsf .gt_summary_row {
+#ztuutlfoia .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3143,16 +3310,16 @@ Tooltips in Quarto
   padding-right: 5px;
 }
 
-#edjkvsbbsf .gt_first_summary_row {
+#ztuutlfoia .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#edjkvsbbsf .gt_first_summary_row.thick {
+#ztuutlfoia .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#edjkvsbbsf .gt_last_summary_row {
+#ztuutlfoia .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3162,7 +3329,7 @@ Tooltips in Quarto
   border-bottom-color: #D3D3D3;
 }
 
-#edjkvsbbsf .gt_grand_summary_row {
+#ztuutlfoia .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3172,7 +3339,7 @@ Tooltips in Quarto
   padding-right: 5px;
 }
 
-#edjkvsbbsf .gt_first_grand_summary_row {
+#ztuutlfoia .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3182,7 +3349,7 @@ Tooltips in Quarto
   border-top-color: #D3D3D3;
 }
 
-#edjkvsbbsf .gt_last_grand_summary_row_top {
+#ztuutlfoia .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3192,11 +3359,11 @@ Tooltips in Quarto
   border-bottom-color: #D3D3D3;
 }
 
-#edjkvsbbsf .gt_striped {
+#ztuutlfoia .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#edjkvsbbsf .gt_table_body {
+#ztuutlfoia .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3205,7 +3372,7 @@ Tooltips in Quarto
   border-bottom-color: #D3D3D3;
 }
 
-#edjkvsbbsf .gt_footnotes {
+#ztuutlfoia .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3219,7 +3386,7 @@ Tooltips in Quarto
   border-right-color: #D3D3D3;
 }
 
-#edjkvsbbsf .gt_footnote {
+#ztuutlfoia .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3228,7 +3395,7 @@ Tooltips in Quarto
   padding-right: 5px;
 }
 
-#edjkvsbbsf .gt_sourcenotes {
+#ztuutlfoia .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3242,7 +3409,7 @@ Tooltips in Quarto
   border-right-color: #D3D3D3;
 }
 
-#edjkvsbbsf .gt_sourcenote {
+#ztuutlfoia .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3250,72 +3417,72 @@ Tooltips in Quarto
   padding-right: 5px;
 }
 
-#edjkvsbbsf .gt_left {
+#ztuutlfoia .gt_left {
   text-align: left;
 }
 
-#edjkvsbbsf .gt_center {
+#ztuutlfoia .gt_center {
   text-align: center;
 }
 
-#edjkvsbbsf .gt_right {
+#ztuutlfoia .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#edjkvsbbsf .gt_font_normal {
+#ztuutlfoia .gt_font_normal {
   font-weight: normal;
 }
 
-#edjkvsbbsf .gt_font_bold {
+#ztuutlfoia .gt_font_bold {
   font-weight: bold;
 }
 
-#edjkvsbbsf .gt_font_italic {
+#ztuutlfoia .gt_font_italic {
   font-style: italic;
 }
 
-#edjkvsbbsf .gt_super {
+#ztuutlfoia .gt_super {
   font-size: 65%;
 }
 
-#edjkvsbbsf .gt_footnote_marks {
+#ztuutlfoia .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#edjkvsbbsf .gt_asterisk {
+#ztuutlfoia .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#edjkvsbbsf .gt_indent_1 {
+#ztuutlfoia .gt_indent_1 {
   text-indent: 5px;
 }
 
-#edjkvsbbsf .gt_indent_2 {
+#ztuutlfoia .gt_indent_2 {
   text-indent: 10px;
 }
 
-#edjkvsbbsf .gt_indent_3 {
+#ztuutlfoia .gt_indent_3 {
   text-indent: 15px;
 }
 
-#edjkvsbbsf .gt_indent_4 {
+#ztuutlfoia .gt_indent_4 {
   text-indent: 20px;
 }
 
-#edjkvsbbsf .gt_indent_5 {
+#ztuutlfoia .gt_indent_5 {
   text-indent: 25px;
 }
 
-#edjkvsbbsf .katex-display {
+#ztuutlfoia .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#edjkvsbbsf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ztuutlfoia div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 
@@ -3373,380 +3540,255 @@ Tooltips in Quarto
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
     }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-  }
-  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-    let newTheme = '';
-    if(darkModeDefault) {
-      newTheme = isAlternate ? baseTheme : alternateTheme;
-    } else {
-      newTheme = isAlternate ? alternateTheme : baseTheme;
-    }
-    const changeGiscusTheme = () => {
-      // From: https://github.com/giscus/giscus/issues/336
-      const sendMessage = (message) => {
-        const iframe = document.querySelector('iframe.giscus-frame');
-        if (!iframe) return;
-        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
-      sendMessage({
-        setConfig: {
-          theme: newTheme
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
       });
     }
-    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-    if (isGiscussLoaded) {
-      changeGiscusTheme();
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
-        }
-      }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  const darkModeDefault = false;
-  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-    toggleGiscusIfUsed(toAlternate, darkModeDefault);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } else {
-    toggleColorMode(false);
-  }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
         }
-        return container.innerHTML
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -3754,185 +3796,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 </div> <!-- /content -->
 <script type="text/javascript" src="../../../_resources/js/scripts.js"></script>
 <script>

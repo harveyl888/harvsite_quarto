@@ -28,7 +28,10 @@ f <- function(x, y) {
 }
 
 ## add two new attributes
-attributes(f) <- c(attributes(f), f = "function: sum", param_count = 2)
+attrs <- attributes(f)
+attrs$f <- "function: sum"
+attrs$param_count <- 2
+attributes(f) <- attrs
 ```
 
 ```{r}
