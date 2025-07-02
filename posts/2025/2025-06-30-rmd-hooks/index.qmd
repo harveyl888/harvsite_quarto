@@ -1,0 +1,9 @@
+---
+author: "Harvey"
+title: "Working with RMarkdown Hooks"
+date: "2025-06-30"
+description: "Working with RMarkdown Hooks"
+categories: ["RMarkdown", "Quarto"]
+draft: true
+---
+

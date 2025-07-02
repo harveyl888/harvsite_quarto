@@ -1,0 +1,36 @@
+---
+author: "Harvey"
+title: "Inserting Code Chunks into RMarkdown/Quarto"
+date: "2025-07-01"
+description: "A simple way to work with a library of code chunks"
+categories: ["RMarkdown", "Quarto"]
+draft: true
+---
+
+## Introduction
+
+This is a short post to demonstrate a function that can be used to insert code chunks, from a library of chunks, into an active RMarkdown or Quarto document.  The concept is simple - read in a chunk of code from a location, in this case GitHub, and use functions from {rstudioapi} to insert it at the current cursor position.
+
+## Code and Example
+
+```r
+add_code_chunk <- function(snippet = NULL, chunk = TRUE) {
+
+  if (!is.null(snippet)) {
+    location <- “https://github.com/harveyl888/insert-chunks/blob/main/”
+    snippet_location <- paste0(file.path(location, snippet), ".qmd")
+    s <- readLines(snippet_location) |>
+      paste(collapse = "\n")
+
+    if (chunk == TRUE) {
+      s <- paste("```{r}", s, "```", sep = "\n")
+    }
+
+    ## inject at current cursor position
+    l <- rstudioapi::getSourceEditorContext()
+    rstudioapi::insertText(text = s, id = l$id)
+
+  }
+
+}
+```
