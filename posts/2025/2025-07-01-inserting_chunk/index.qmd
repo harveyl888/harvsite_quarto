@@ -14,15 +14,15 @@ This is a short post to demonstrate a function that can be used to insert code c
 ## Code and Example
 
 ```r
-add_code_chunk <- function(snippet = NULL, chunk = TRUE) {
+add_code_chunk <- function(snippet = NULL, fences = TRUE) {
 
   if (!is.null(snippet)) {
-    location <- “https://github.com/harveyl888/insert-chunks/blob/main/”
+    location <- "https://raw.githubusercontent.com/harveyl888/insert-chunks/refs/heads/main/"
     snippet_location <- paste0(file.path(location, snippet), ".qmd")
     s <- readLines(snippet_location) |>
       paste(collapse = "\n")
 
-    if (chunk == TRUE) {
+    if (fences == TRUE) {
       s <- paste("```{r}", s, "```", sep = "\n")
     }
 
@@ -31,6 +31,42 @@ add_code_chunk <- function(snippet = NULL, chunk = TRUE) {
     rstudioapi::insertText(text = s, id = l$id)
 
   }
-
 }
 ```
+
+The function can be run from the console `add_code_chunk("testfile_01", chunk = TRUE)` to insert the contents of *harveyl888/insert-chunks/testfile_01.qmd* at the current cursor position.  With `fences = TRUE` the chunk fences will be included.
+
+The two {rstudioapi} functions take care of placing the content at the cursor.  `rstudioapi::getSourceEditorContent()` grabs details of the current open editor window.  It returns a list with the follow members: 
+-  id. A unique ID
+-  path. The document path
+-  contents. The document contents
+-  selection. The currently selected region range
+
+For the purpose of inserting code, we want to capture the id, so that we can refer to the open document.
+
+The second function, `rstudioapi::insertText()` inserts text into a chosen document.  We use the document id returned by `rstudioapi::getSourceEditorContent()` and place text at the current cursor position.
+
+Here's an initial document
+
+```{r}
+#| eval: false
+## Heading
+
+Some initial text
+
+```
+
+and here it is after scrolling to the end and executing `add_code_chunk("testfile_01", chunk = TRUE)`
+
+````{r}
+#| eval: false
+## Heading
+
+Some initial text
+
+```{r}
+df <- mtcars |>
+  dplyr::filter(cyl == 6)
+print(nrow(df))
+```
+````
