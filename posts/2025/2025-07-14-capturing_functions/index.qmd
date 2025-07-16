@@ -1,0 +1,67 @@
+---
+author: "Harvey"
+title: "Capturing functions in R"
+date: "2025-07-14"
+description: "Capturing a function in R"
+categories: ["R"]
+draft: true
+---
+
+Here's a little code snippet used to capture a function and its arguments.  A use-case is to define the function when building metacode.
+
+The function `get_function()` takes the name of an R function that exists in memory and returns the function definition as it was be defined in code.  Two trailing lines are removed: `<environment>` is the environment in which the function was defined, typically `namespace:base` for base R functions or `namespace:pkg` for a function from package `pkg`; `<bytecode>` indicates that the function has been compiled into bytecode.
+
+```{r}
+get_function <- function(fn) {
+  
+  ## capture the function
+  fn_txt <- capture.output(print(get(fn)))
+  
+  if (length(fn_txt) > 0) {
+    
+    fn_txt[1] <- paste(fn, "<-", fn_txt[1])
+    
+    if (grepl("<environment", fn_txt[length(fn_txt)])) {
+      fn_txt <- fn_txt[-length(fn_txt)]
+    }
+    if (grepl("<bytecode", fn_txt[length(fn_txt)])) {
+      fn_txt <- fn_txt[-length(fn_txt)]
+    }
+    fn_txt <- paste(fn_txt, collapse = "\n")
+  }
+  return(fn_txt)
+  
+}
+```
+
+## Example
+
+```{r}
+my_function <- function(x) {
+  # return x + 1
+  x + 1
+}
+
+```
+
+```{.r}
+cat(get_function("my_function"))
+```
+
+```markdown
+my_function <- function (x)
+{
+    # return x + 1
+    x + 1
+}
+```
+
+## Why not use deparse?
+
+`deparse()` and `deparse()` are base R functions that return unevaluated R expressions into strings.  Passing a function name to `deparse()` leads to a similar output, however any comments are removed from the output.
+
+```{r}
+fn_deparse <- deparse(my_function)
+fn_deparse <- paste(fn_deparse, collapse = "\n")
+cat(fn_deparse)
+```
