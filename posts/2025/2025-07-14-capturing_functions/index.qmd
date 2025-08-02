@@ -4,7 +4,6 @@ title: "Capturing functions in R"
 date: "2025-07-14"
 description: "Capturing a function in R"
 categories: ["R"]
-draft: true
 ---
 
 Here's a little code snippet used to capture a function and its arguments.  A use-case is to define the function when building metacode.
@@ -58,7 +57,7 @@ my_function <- function (x)
 
 ## Why not use deparse?
 
-`deparse()` and `deparse()` are base R functions that return unevaluated R expressions into strings.  Passing a function name to `deparse()` leads to a similar output, however any comments are removed from the output.
+`deparse()` and `deparse1()` are base R functions that return unevaluated R expressions into strings.  Passing a function name to `deparse()` leads to a similar output, however any comments are removed from the output.
 
 ```{r}
 fn_deparse <- deparse(my_function)

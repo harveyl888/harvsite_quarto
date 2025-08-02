@@ -4,7 +4,6 @@ title: "Inserting Code Chunks into RMarkdown/Quarto"
 date: "2025-07-01"
 description: "A simple way to work with a library of code chunks"
 categories: ["RMarkdown", "Quarto"]
-draft: true
 ---
 
 ## Introduction
@@ -37,6 +36,7 @@ add_code_chunk <- function(snippet = NULL, fences = TRUE) {
 The function can be run from the console `add_code_chunk("testfile_01", chunk = TRUE)` to insert the contents of *harveyl888/insert-chunks/testfile_01.qmd* at the current cursor position.  With `fences = TRUE` the chunk fences will be included.
 
 The two {rstudioapi} functions take care of placing the content at the cursor.  `rstudioapi::getSourceEditorContent()` grabs details of the current open editor window.  It returns a list with the follow members: 
+
 -  id. A unique ID
 -  path. The document path
 -  contents. The document contents
