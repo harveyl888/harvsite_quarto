@@ -1,0 +1,60 @@
+---
+author: "Harvey"
+title: "Towards the use of AI in Clinical Settings (early Phase work)"
+date: "2026-05-07"
+description: "How far can we push AI in clinical settings?"
+categories: ["AI", "opinion"]
+draft: true
+---
+
+*Note: Everything in this post is purely speculative and based on my own thoughts and opinions.*
+
+AI has been making significant strides in various fields, including Pharma.  In Pharmaceutical development, AI has the potential to revolutionize how we approach clinical trial design, patient recruitment and data analysis but there are also significant challenges and ethical considerations that need to be addressed.
+
+The FDA has laid out some of these challenges in its draft guidance document, [Considerations for the Use of Artificial Intelligence To Support Regulatory Decision-Making for Drug and Biological Products](https://www.fda.gov/regulatory-information/search-fda-guidance-documents/considerations-use-artificial-intelligence-support-regulatory-decision-making-drug-and-biological).  This post will explore some of the key considerations for the use of AI in clinical settings, particularly in early phase work, and how we can navigate these challenges to harness the full potential of AI.
+
+## Internal Decision vs Submission
+
+Clinical trials produce a large amount of data.  AI can be a useful tool to help analyze data and build reports.  Some of the work performed will lead to internal decisions and some will be used in submissions to regulatory agencies.  Use of AI is easier to justify for hypothesis generation and exploratory analysis in earlier phases of drug development, where the focus is on learning and understanding the data.  In later phases, where the focus is on confirmatory analysis and regulatory submissions, the use of AI may be more challenging due to the need for transparency, reproducibility and regulatory compliance.
+
+## Clinical Trial Phases
+
+Let's consider the different phases of clinical trials.
+
+#### Phase I - Is it safe?
+Phase I typically works with healthy volunteers and the primary focus is on safety and tolerability.  There tends to be a degree of exploratory work and simulation to understand the data.  In addition, the majority of the deliverables are for internal use and not for submission.
+
+#### Phase IIa - Does it work?
+Phase IIa is the first time we work with patients and the focus is on proof of concept.  There is still a degree of exploratory work involved, but there is also a need for more confirmatory analysis.  The deliverables are a mix of internal and submission.
+
+#### Phase IIb - What dose and design should we use for Phase III?
+Phase IIb helps confirm the dose and design for phase III.  Here, there is a need for more confirmatory analysis and the deliverables are more focused on submission.
+
+#### Phase III - Is it effective?
+Phase III is the confirmatory phase and the focus is on demonstrating efficacy and safety.  The deliverables are primarily for submission and there is a need for transparency, reproducibility and regulatory compliance.
+
+#### Use of AI
+Considering the different phases of drug development:
+
+- Phase I and IIa are where AI can be used more as an analyst or copilot tool to help with exploratory analysis and hypothesis generation.  The questions being asked relate to "what do we think is happening?" and "what do we want to explore further?". 
+- In Phase IIb, AI has a role as an engineering assistant.  It has the potential to help with more pipeline-related work that can produce deterministic and reproducible outputs.  It can do the engineering, but not decide scientific-truth.
+- For Phase III, AI has the potential to offer documentation, QC and reporting tools, but not evidence generation or interpretation.
+
+AI has the potential to help drive hypothesis generation and exploratory analysis in early phase work and be the layer that understands protocols and metadata whilst driving reproducible and deterministic outputs in later phase work.
+
+## Cloud or Local?
+
+One interesting working model to consider is the use of local LLMs vs cloud-based LLMs.  Cloud-based LLMs are more powerful but their use raises concerns around data privacy, security and, potentially, regulatory compliance.  Local LLMs, however, can be run on-premises and offer a greater degree of control over compliance, but are less powerful, with weaker reasoning capabilities
+
+#### Local Model
+This is where you could consider patient-level reasoning such as subject-level profiles, adverse event narratives, population flag investigation, etc.  Local models can perform well on tasks that require modest understanding of the data/context.  They can be trained on internal data and fine-tuned for specific tasks and they can use deterministic tools which would provide deterministic outputs.  However, they may struggle with more complex tasks that require a deeper understanding of the data/context.
+
+#### Cloud Model
+Cloud models have deeper reasoning skills but there can be concerns around data privacy, security and regulatory compliance.  They can be used for tasks that require a deeper understanding of context, such as protocol design, but may not be suitable for patient-level reasoning.  The use of sanitized data could be a potential solution.
+
+#### Hybrid Approaches
+This is the sweet spot.  Use local models for data-related tasks and cloud models with metadata or summary data for more complex tasks.  
+
+## Where Agents and Orchestration Fit In
+The use of multi-agent orchestration frameworks such as LangGraph and CrewAI offer the ability to build out complex workflows that can integrate multiple tools (deterministic) and LLM models.  Both local and cloud-based LLMs can be integrated together in a single workflow, with human-in-the-loop oversight.  This has the potential to harness the power of both local and cloud-based models, whilst maintaining control over compliance and data privacy.
+
