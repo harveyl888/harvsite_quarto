@@ -1,0 +1,12 @@
+---
+author: "Harvey"
+title: "Building a Better Local LLM for Coding in R - Part 1"
+date: "2026-05-25"
+description: "Building a training set for a local LLM"
+categories: ["AI", "R"]
+draft: true
+---
+
+This is the first in a set of n posts on training a local LLM to be a better R programmer, particularly for the clinical setting.
+
+This part deals with building a training set from existing R packages.
