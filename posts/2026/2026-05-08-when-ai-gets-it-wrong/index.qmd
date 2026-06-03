@@ -4,7 +4,6 @@ title: "When AI Gets it Wrong"
 date: "2026-05-08"
 description: "Your coding tools are only as good as the data they are trained on."
 categories: ["AI", "R"]
-draft: true
 ---
 
 ::: {.callout-note}
@@ -53,7 +52,7 @@ advs |>
   )
 ```
 
-The output is not we expect.  The points are in the right place but the order in which the lines are drawn between them does not follow the order of the x-axis.  This is a known issue with plotly, due to the fact that the x-values must be ordered for the lines to be drawn correctly.  A simple `arrange(ADY)` step will take care of this and a slighly edited prompt leads to a more satisfactory output.
+The output is not we expect.  The points are in the right place but the order in which the lines are drawn between them does not follow the order of the x-axis.  When working with plotly, the x-values must be ordered for lines to be drawn correctly.  A simple `arrange(ADY)` step will take care of this and a slighly edited prompt leads to a more satisfactory output.
 
 ### Second Prompt
 
@@ -125,7 +124,7 @@ Telling the LLM that it the error bars are incorrect can lead to some interestin
 
 *this is still incorrect. Please review https://github.com/plotly/plotly.R/issues/762 and plot again.*
 
-Repsonse: *The issue is that error_y arrays don't get correctly split when color creates separate traces — each trace gets the full unsplit error array. The workaround is to build traces manually per group*
+Response: *The issue is that error_y arrays don't get correctly split when color creates separate traces — each trace gets the full unsplit error array. The workaround is to build traces manually per group*
 
 ```{r}
 plot_data <- advs |>
@@ -165,9 +164,10 @@ p
 
 ## The Big Picture
 
-In many ways, AI coding tools have democratized coding, making it available to those without a coding background, and introducing new languages to those with one.  However, these tools are only as good as the data they are trained on and, if the training data are flawed, the output will be flawed.  
-In pharmaceutical development, we have many SAS programmers, who are transitioning to R, and coding tools are helping this transition.  There is also a push to move from static outputs to interactive ones, with plotly being a popular library and one which LLMs will favor, due to the abundance of plotly code in training data.  When used blindly, this can lead to outputs that are not fit for purpose or, as in this example, incorrect.  It is essential to build skills in any computer language and understand its idiosyncrasies in order to use it effectively with coding tools.
+In many ways, AI coding tools have democratized coding, making it available to those without a coding background, and introducing new languages to those with one.  However, these tools are only as good as the data they are trained on and, if the training data are flawed, the output will be flawed.
+
+In pharmaceutical development, many SAS programmers are transitioning to R, and coding tools are helping this transition.  There is also a push to move from static outputs to interactive ones, with plotly being a popular library and one which LLMs will favor, due to the abundance of plotly code in training data.  When used blindly, this can lead to outputs that are not fit for purpose or, as in this example, incorrect.  It is essential to build skills in any computer language and understand its idiosyncrasies in order to use it effectively with coding tools.
 
 ## Solution
 
-This is the perfect use-case for an LLM skill to ensure that error bars are plotted correctly.
+This is the perfect use-case for an LLM `skill` to ensure that error bars are plotted correctly.

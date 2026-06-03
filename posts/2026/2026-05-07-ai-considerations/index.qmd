@@ -4,7 +4,6 @@ title: "Towards the use of AI in Clinical Settings (early Phase work)"
 date: "2026-05-07"
 description: "How far can we push AI in clinical settings?"
 categories: ["AI", "opinion"]
-draft: true
 ---
 
 *Note: Everything in this post is purely speculative and based on my own thoughts and opinions.*
