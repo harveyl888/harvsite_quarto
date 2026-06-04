@@ -1,0 +1,185 @@
+---
+author: "Harvey"
+title: "A CrewAI for Pharmaceutical Competitive Landscape"
+date: "2026-05-25"
+description: "Using a local LLM to explore a competitive landscape"
+categories: ["AI", "Python", "CrewAI", "Pharma"]
+draft: true
+---
+
+## Introduction
+
+CrewAI is a agent orchestration tool which allows AI agents to work together in a collaborative nature.  Rather than relying on a single large language model to handle an entire task, crewAI assigns specific roles, backstories and goals to individual agents, allowing them to act akin to a workforce.  CrewAI allows the construction of *crews* where independent agents can dynamically collaborate, delegate tasks and use external tools.
+
+In this example we'll put together a crew that researches the literature for competitive landscape information for a named clinical indication.  The crew will use a local LLM along with tools to illustrate how basic research can be carried out without the need for a cloud-based LLM.
+
+## Configuration
+
+The final configuration will look something like this:
+
+```bash
+my_crew_project/
+├── config/
+│   ├── agents.yaml       # Defines AI agent roles, backstories, and goals
+│   └── tasks.yaml        # Outlines specific tasks and expected outputs
+├── tools/
+│   ├── ctgov.py          # ClinicalTrials.gov API integration tool
+│   ├── extractor.py      # Core data extraction logic
+│   ├── pdf_tool.py       # PDF parsing and reading utility
+│   └── pubmed.py         # PubMed medical literature search tool
+├── crew.py               # Orchestrates agents, tasks, and tools into a Crew
+├── main.py               # Application entry point to pass inputs and run the Crew
+└── outputs/              # Directory where generated results and reports are saved
+```
+
+## Set up the environment
+
+We'll use `uv` to set up an environment as follows.
+
+```bash
+uv init
+uv venv --python=3.12
+source .venv/bin/activate
+uv add crewai
+```
+
+## A Minimal Agent (researching clinical trials)
+First let's build a single agent with a single task and a tool to demonstrate tool use.  This agent will research [clinicaltrials.gov](https://clinicaltrials.gov/) and return trial information for a named indication.
+
+### Defining the Agent
+
+First we define the agent itself in the `config/agents.yaml` file as follows:
+
+```yaml
+trial_researcher:
+  role: >
+    Clinical Trial Discovery Specialist
+  goal: >
+    Identify relevant {indication} clinical trials from ClinicalTrials.gov
+  backstory: >
+    You are an expert in navigating clinical trial registries and identifying
+    studies relevant for meta-analysis. You take pride in being exhaustive and 
+    meticulous, ensuring that every relevant trial found is reported individually 
+    without summarization.
+
+```
+
+The agent consists of a name (`trial_researcher`) followed by a role, goal and backstory.
+
+-  **role** The role defines what the agent does and their area of expertise.  Roles should be specific and specialized and align with real-world professions.
+-  **goal** The goal directs the agent's efforts and shapes their decision-making process.  Goals should be clear and outcome-focussed.
+-  **backstory** The backstory gives depth to the agent, influencing how they approach problems and interact with others.  The backstory should establish expertise and experience and describe how the agent approaches their work.  It should also help create a cohesive persona so that the backstory aligns with the role and goal.
+
+**Note:** The goal contains `{indication}` in its definition.  `indication` is passed to the agent, leading to parameterized agents.
+
+::: {.callout-note}
+Agents can be defined using the YAML approach above or through code.
+:::
+
+### Defining the Task
+
+Next we define a task for the agent to perform in the `config/tasks.yaml` file as follows:
+
+```yaml
+find_trials:
+  description: >
+    Search ClinicalTrials.gov for {indication} trials with:
+    - Efficacy and safety endpoints
+
+    Use the 'count' parameter to request 20 results. 
+    You must provide an exhaustive list of ALL 20 results. 
+    DO NOT summarize. DO NOT truncate.
+  expected_output: >
+    A formatted markdown list of 20 trials (if available) including NCT ID and full title. 
+    If fewer than 20 are found, explain exactly why (e.g. search narrowed too far).
+  agent: trial_researcher
+```
+
+The task consists of a name (`find_trials`) followed by a description, expected_output and agent.
+
+-  **description** The description should focus on what to do and how to do it, including detailed instructions for execution, context and background information, scope and constraints and any process steps to follow.
+-  **expected_output** The expected output should define what the final result should look like.  It should include format specifications (eg markdown, json), structure requirements, quality criteria and optionally examples of good outputs.
+-  **agent** The name of the agent to perform this task.
+
+### Adding a Tool
+
+Right now we have an agent and a task.  A cloud-based LLM could likely take this request and identify trials in clinicaltrials.gov but a local smaller model would struggle.  Providing the agent with a tool to help with the task enables the local model to retrieve the data.  In addition, tools provide a degree of reproducibility since they are just functions.
+
+The tool we define for the `trial_researcher` agent resides in `tools/clinicaltrialsgov.py`
+
+```python
+from crewai.tools import tool
+import requests
+
+@tool("ClinicalTrials.gov Search")
+def clinicaltrials_search(indication: str, count: int = 20) -> str:
+  """
+  Search ClinicalTrials.gov for trials.
+  Returns NCT ID and title.
+  """
+
+  url = "https://clinicaltrials.gov/api/v2/studies"
+  params = {
+    "query.term": indication,
+    "pageSize": count,
+    "format": "json"
+  }
+
+  res = requests.get(url, params=params).json()
+
+  studies = []
+  for s in res.get("studies", []):
+    ident = s.get("protocolSection", {}).get("identificationModule", {})
+    studies.append({
+      "nct_id": ident.get("nctId"),
+      "title": ident.get("briefTitle")
+    })
+
+  return str(studies)
+```
+
+The tool includes a `@tool` decorator followed by its name and function with a docstring.  The docstring is important as it is what the LLM uses to decide whether or not to use a tool.  Finally we have the function definition.  In this case, our function uses the clinicaltrials.gov API to search for an indication and returns the NCT ID and title.
+
+### Putting it all together
+
+The last piece is to combine our agents, tasks and tools into a crew.  The `crew.py` manages this.
+
+```python
+from crewai import Crew, Process, LLM, Agent, Task
+from crewai.project import CrewBase, agent, task
+
+from tools.clinicaltrialsgov import clinicaltrials_search
+
+ollama_qwen = LLM(
+  model="ollama/qwen3.5:9b",
+  base_url="http://localhost:11434",
+  temperature=0,
+  extra_body={"num_ctx": 32768}
+)
+
+@CrewBase
+class ClinicalCrew():
+
+  @agent
+  def trial_researcher(self) -> Agent:
+    return Agent(
+      config=self.agents_config["trial_researcher"],
+      llm=ollama_qwen,
+      tools=[clinicaltrials_search]
+    )
+
+  @task
+  def find_trials(self) -> Task:
+    return Task(
+      config=self.tasks_config["find_trials"]
+    )
+    
+  def crew(self) -> Crew:
+    return Crew(
+      agents=[self.trial_researcher()],
+      tasks=[self.find_trials()],
+      process=Process.sequential,
+      verbose=True
+    )
+```
+
