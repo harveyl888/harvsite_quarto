@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Harvey">
+<meta name="dcterms.date" content="2026-05-08">
+<meta name="description" content="Your coding tools are only as good as the data they are trained on.">
+
+<title>When AI Gets it Wrong – Harvey Lieberman</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-cac8b2c7896029b35d9e5cdbbbc1cb6a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-d6fd8f7d869dc6558a15739d9b9c0e63.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-cac8b2c7896029b35d9e5cdbbbc1cb6a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script>
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="../../../site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+<script src="../../../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="../../../site_libs/plotly-binding-4.12.0/plotly.js"></script>
+<script src="../../../site_libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="../../../site_libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="../../../site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+<script src="../../../site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="../../../site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="../../../site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
+
+
+</head>
+
+<body class="nav-fixed fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Harvey Lieberman</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../posts"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/harveyl888"> 
+<span class="menu-text"><lord-icon src="https://cdn.lordicon.com/yvjimpju.json" colors="primary:#ffffff,secondary:#c7e0eb" trigger="hover"></lord-icon></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://twitter.com/harveyl888"> 
+<span class="menu-text"><lord-icon src="https://cdn.lordicon.com/wlbymhoo.json" colors="primary:#ffffff,secondary:#c7e0eb" trigger="hover"></lord-icon></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.linkedin.com/in/harvey-lieberman"> 
+<span class="menu-text"><lord-icon src="https://cdn.lordicon.com/qgebwute.json" colors="primary:#ffffff,secondary:#c7e0eb" trigger="hover"></lord-icon></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">When AI Gets it Wrong</h1>
+                  <div>
+        <div class="description">
+          Your coding tools are only as good as the data they are trained on.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">AI</div>
+                <div class="quarto-category">R</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Harvey </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 8, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is a specific example, but it illustrates a general point on the problem of rushing into using AI coding tools without fully understanding the potential pitfalls.<br>
+All the genAI coding in the post has been generated using Claude Opus 4.6.</p>
+</div>
+</div>
+<section id="a-classic-example" class="level2">
+<h2 class="anchored" data-anchor-id="a-classic-example">A Classic Example</h2>
+<p>Working in clinical development, a common task is to summarize and plot data. As we move towards more AI-centric approaches to coding, we could consider such a task to be a good candidate for an AI coding tool. Let’s first read in some data from the {pharmaverseadam} package and ask an LLM do just this. The example will read in <code>advs</code>, the vital signs dataset, and ask for a summary of mean pulse over time by treatment group, along with an interactive plot of the data with error bars.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pharmaverseadam)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">'advs'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="running-with-the-llm" class="level2">
+<h2 class="anchored" data-anchor-id="running-with-the-llm">Running with the LLM</h2>
+<section id="first-prompt" class="level3">
+<h3 class="anchored" data-anchor-id="first-prompt">First Prompt</h3>
+<p>Prompt to LLM: <em>“Take the loaded advs data, return the mean PULSE values along with standard errors, grouped by ADY and TRTA. Give me an interactive plot of this data with error bars.”</em></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: ggplot2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'plotly'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:ggplot2':
+
+    last_plot</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:stats':
+
+    filter</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:graphics':
+
+    layout</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>advs <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(PARAMCD <span class="sc">==</span> <span class="st">"PULSE"</span>, ANL01FL <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_val =</span> <span class="fu">mean</span>(AVAL, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_val   =</span> <span class="fu">sd</span>(AVAL, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>()),</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> <span class="fu">c</span>(ADY, TRTA)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_ly</span>(</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="sc">~</span>ADY,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="sc">~</span>mean_val,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="sc">~</span>TRTA,</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">error_y =</span> <span class="sc">~</span><span class="fu">list</span>(<span class="at">array =</span> se_val),</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"scatter"</span>,</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">mode =</span> <span class="st">"lines+markers"</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Mean Pulse Over Time by Treatment"</span>,</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Analysis Day"</span>),</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Mean Pulse (bpm)"</span>)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-4620c244dc6e87d1a885" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-4620c244dc6e87d1a885">{"x":{"visdat":{"17754178a953":["function () ","plotlyVisDat"]},"cur_data":"17754178a953","attrs":{"17754178a953":{"x":{},"y":{},"error_y":{},"mode":"lines+markers","color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Mean Pulse Over Time by Treatment","xaxis":{"domain":[0,1],"automargin":true,"title":"Analysis Day"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Mean Pulse (bpm)"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[15,29,42,63,84,126,140,168,182,23,14,43,58,86,113,141,169,57,91,138,183,16,27,85,108,142,170,22,97,171,30,40,100,120,165,177,17,32,112,162,56,28,54,60,90,114,46,13,161,31,186,44,134,175,50,139,167,181,33,89,118,149,180,198,36,52,78,107,189,55,83,111,143,88,116,144,95,123,26,39,53,80,136,64,92,127,197,48,62,146,19,82,110,166,119,174,41,145,49,121,191,47,132,148,51,79,106,24,87,45,59,115,21,184,173,172,20,34,96,188,117,179,194,196,25,147,69,176,190,122,185,135,65,70],"y":[72.581395348837205,70.849999999999994,63.799999999999997,78.070175438596493,72.458333333333329,58.666666666666664,68.233333333333334,67.033333333333331,70.761904761904759,71.833333333333329,78.555555555555557,73.08393285371703,69.277777777777771,81.333333333333329,72.014492753623188,73.158730158730165,72.629629629629633,72,74.916666666666671,79.583333333333329,74.129629629629633,67.888888888888886,77.358974358974365,76.666666666666671,77.333333333333329,64.5,69.583333333333329,67.166666666666671,64.666666666666671,68.555555555555557,71.777777777777771,75.933333333333337,59,55.333333333333336,64,65,80.722222222222229,81.722222222222229,67.871794871794876,70.555555555555557,72.193548387096769,72.3125,73,72.799999999999997,69.916666666666671,70.333333333333329,64.111111111111114,86,77.166666666666671,75.666666666666671,67.166666666666671,71.695238095238096,68,68,69,72.111111111111114,72.222222222222229,73.200000000000003,66.666666666666671,71.666666666666671,66,74.666666666666671,74.444444444444443,78.666666666666671,62.666666666666664,68.666666666666671,77.333333333333329,72,68.666666666666671,71.083333333333329,75.333333333333329,70.833333333333329,68.333333333333329,76,73.777777777777771,66.666666666666671,90,69.333333333333329,76.416666666666671,70,70.666666666666671,69.333333333333329,68.666666666666671,67.5,77.222222222222229,77.333333333333329,70.666666666666671,71.111111111111114,70.444444444444443,69.733333333333334,77,77.333333333333329,68.666666666666671,68.666666666666671,82,84,75.565217391304344,74.222222222222229,78,72.333333333333329,74.666666666666671,82.666666666666671,65.333333333333329,60.333333333333336,74,69,62,92.666666666666671,87.222222222222229,84.5,76.111111111111114,76.333333333333329,64,78,80,71.555555555555557,82,73.333333333333329,61.333333333333336,85.666666666666671,74.666666666666671,77.333333333333329,82,76.666666666666671,76,75.333333333333329,72,66.666666666666671,79.333333333333329,74.666666666666671,62.666666666666664,81.333333333333329,74.666666666666671,60],"error_y":{"color":"rgba(102,194,165,1)","array":[0.62889010046156124,0.94142626033950305,1.3854718199020466,3.2738929250328077,1.677423350893894,1.3123346456686351,1.1176007064382782,1.4664238338211977,2.2055497009809377,6.9550712342157848,1.4017499770773429,1.2166431576586934,1.7695466415103347,1.6688537838107982,1.4870571937615433,2.8526303651191824,5.3243972756741531,2.9319823947608268,5.9525238078095652,0.92083284646666441,1.415881589734554,1.0231094556614728,1.98890219025436,1.5277240651132009,1.6323071167208365,2.7122215988140685,2.3502643872676279,1.4532697427959747,0.91303572820024315,1.3225600543267177,1.5598077432693938,1.1243418611842604,0.8864774596116014,1.5265830604509667,2.0102231595017384,1.4460986322392457,1.6617773401303177,1.5044000043935699,1.0929388068218016,2.2888522252423846,0.8344401888802162,1.8064193400180955,1.9339626780813637,0.9949561314692672,1.0583697353930488,1.0175292772678242,1.0194992223531436,2.9129858356233096,1.2320939718850814,1.5144288861273747,1.1187137504979645,3.2261231176708631,2.9580398915498081,1.0767047857868675,0.81649658092772603,1.9279126621090092,2.9617155939183726,1.4339059767835693,3.3249895572100008,0.98983111758903675,1.5374179467013727,0.9202380506651312,1.0312575156051289,2.0701966780270626,2.2384477094960578,1.4430173437535398,1.9614685051167773,1.5754188155676079,2.4494897427831779,1.2598815766974241,3.775442789126628,1.9023794624226835,2.2607766610417559,1.3017082793177759,1.5213533872944374,4.9078815783697944,2.7831693707052301,3.5605236755280134,2.9818750723946201,1.5743199310019265,2.3800584788137247,1.6035674514745462,1.649915822768611,1.7795130420052185,4.2149582460414736,2.8159996620242636,1.4079152318560719,2.4405452306662316,1.7308495148167828,1.922093765778466,1.8005731010052024,2.2034206870260471,1.6691339761842594,2.7278338367791837,1.6532084495134369,2.621726586125575,2.116685887661609,2.9256663872567237,1.7260643804951294,1.7868388290827086,2.0144156399239881,1.5314322644436149,0.47140452079103162,0.76860238782901291,1.5634719199411433,1.3930064082437057,2.5418926934160013,3.4697140699662166,1.2607889961275494,1.767806633036249,1.2664944415596173,2.4944382578492941,2.4944382578492941,1.247219128924647,2.5869201523617917,1.3595689960197945,3.4434202266268428,1.1522670255828782,0.97025500142161392,2.1306530782092468,2.6847033121554689,0.35634832254989918,1.4029447488244029,2.6822461565718463,1.3094349479989205,2.2574041885632399,2.1472637928133054,1.3925982213102504,2.1037884698623874,2.2555047300552458,1.9519695656400959,1.4819821527376793,1.3784309257156571,2.5716582055020307]},"mode":"lines+markers","type":"scatter","name":"Placebo","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[14,27,42,54,83,111,139,172,180,15,29,57,87,113,141,170,183,16,30,45,58,114,142,173,28,182,40,55,82,112,138,168,44,86,18,41,56,169,69,37,116,177,184,13,61,47,109,137,165,90,140,35,33,19,32,85,12,26,46,43,50,64,92,120,148,176,190,31,21,22,36,71,99,167,181,60,84,189,34,48,63,88,49,59,162,20,62,119,147,175,103,174,188,89,196,118,95,127,155,17,68,91,124,154,186,200,145,117,70],"y":[74.444444444444443,74.857142857142861,79.851851851851848,69.777777777777771,77.777777777777771,76.416666666666671,79,76.111111111111114,72.333333333333329,76.745098039215691,79.714285714285708,72.771241830065364,71.777777777777771,73.148148148148152,72.5,72.722222222222229,71.733333333333334,75.594202898550719,78.083333333333329,69,71.319727891156461,72,79.285714285714292,70.083333333333329,79.352941176470594,71.333333333333329,77.777777777777771,73.464912280701753,70.444444444444443,77.388888888888886,83.333333333333329,67,75.333333333333329,75.666666666666671,74.666666666666671,76.333333333333329,76.066666666666663,70.444444444444443,54.666666666666664,76.666666666666671,76.666666666666671,95.333333333333329,76.714285714285708,78,77.623188405797109,72.260869565217391,62,88,80,80,71.833333333333329,68.666666666666671,63,76.777777777777771,72.166666666666671,71.428571428571431,83.333333333333329,75.111111111111114,79.022222222222226,74.427536231884062,68.888888888888886,80,82.666666666666671,68.888888888888886,86.666666666666671,71.333333333333329,71.666666666666671,62.666666666666664,76.833333333333329,78.666666666666671,81.666666666666671,76,73.333333333333329,74,58.666666666666664,78.666666666666671,73,86.666666666666671,72.771929824561397,73,70.060606060606062,84,81.13333333333334,78.666666666666671,76,71.333333333333329,81.333333333333329,75,85,68.333333333333329,74,68,70.666666666666671,71.222222222222229,63.333333333333336,67.111111111111114,63.333333333333336,56,61.333333333333336,73.666666666666671,78.666666666666671,80,77.333333333333329,72,62.666666666666664,66.666666666666671,83.333333333333329,79.333333333333329,78.666666666666671],"error_y":{"color":"rgba(252,141,98,1)","array":[2.2816839990114821,0.93088629079024454,0.86602540378443849,2.371264561978613,1.2991258372598362,1.4142135623730951,0.81649658092772603,0,0.60924902230891687,1.6093738733303515,2.2396144792961614,1.517185503441109,3.1658248039197234,1.6365974393390632,3.4037016886303633,0.65465367070797709,1.8845655471718941,1.2247448713915889,2.4055678027075271,1.5423046727880014,1.4502651776181976,4.3204937989385739,1.2153156559753562,1.6666666666666665,3.6251862446834338,1.9971921929156748,1.2021909822880628,1.5742639163453118,1.2692955176439848,2.0548046676563256,0.9759000729485332,2.1384610992524213,1.2079980377712787,1.8658728470829633,1.6295531050291021,1.0983392947305517,4.2743328645050687,3.7432318271494367,1.699673171197595,1.7630386481787466,2.161585413329338,1.2853133414748705,2.4944382578492941,1.699673171197595,2.3367322183591042,0,1.9313618848260234,1.2203900408688413,1.8100249932502244,2.1777494329221154,1.2408394495995603,0.98337834378888322,1.2827089740112443,2.1966785894611038,1.1408712905438991,0,0.47140452079103168,2.3388582977437524,0,1.4253932901995967,2.5657460415480364,0.94280904158206336,0.94280904158206336,1.2344267996967353,0.54916964736527585,3.2659863237109041,1.8856180831641267,0,1.543033499620919,1.2354711202164499,0.81649658092772603,0.47140452079103168,0.35634832254989918,0.47140452079103168,0.47140452079103168,0.84983658559879749,0,0.23570226039551584,0.71269664509979835,0.47140452079103168,1.6329931618554521,1.247219128924647,1.6049691355057034,0.92248036165366898,2.7182510717166819,2.5888957013330902,1.6329931618554521,2.5706624194887859,2.1602468994692869,2.4944382578492941,0.82197648525490608,2.0072819173816523,1.4800031610524169,5.5691896193138382,1.9840634910475863,3.0963368013350201,1.699673171197595,4.9633577983982411,1.6329931618554521,0.94280904158206325,1.4142135623730951,1.6329931618554521,2.1188277829359317,2.1230391362294392,1.699673171197595,2.569664297758484,1.4993175835606907,1.5327120894696269,2.728450923957483]},"mode":"lines+markers","type":"scatter","name":"Xanomeline High Dose","marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[15,29,42,57,85,113,141,169,190,14,27,55,16,30,17,31,45,64,117,145,174,183,41,18,32,46,60,83,43,62,86,65,56,87,19,44,59,114,34,28,48,112,168,181,12,50,63,84,147,198,120,176,22,40,81,197,21,90,118,88,144,166,180,116,146,173,187,54,82,92,119,193,24,94,58,139,5,140,115,143,111,134,167,191,106,142,170,184,26,126,153,164,185,61,36,13],"y":[77.567567567567565,72.86666666666666,67.074074074074076,73.044444444444451,73.215686274509807,66.13333333333334,67.533333333333331,67.592592592592595,67.222222222222229,79.200000000000003,73.596491228070178,61.962962962962962,68.083333333333329,70.952380952380949,72.083333333333329,89,75.166666666666671,81.666666666666671,76,69.666666666666671,82.833333333333329,73,71.400000000000006,69.666666666666671,78.266666666666666,72.150537634408607,66.416666666666671,75,73.080128205128204,65.833333333333329,77.533333333333331,80.666666666666671,74.962962962962962,75.777777777777771,75.666666666666671,76.047619047619051,77.122807017543863,70.916666666666671,74.799999999999997,69.037037037037038,76.666666666666671,72.166666666666671,70.222222222222229,69.666666666666671,84,66.222222222222229,71.333333333333329,77.333333333333329,73.833333333333329,75.333333333333329,77.444444444444443,68.333333333333329,70,72,66.666666666666671,68,71.666666666666671,84,68.333333333333329,61.333333333333336,68.666666666666671,64,64.666666666666671,64,76.888888888888886,78,65.333333333333329,69.333333333333329,81.333333333333329,68,70.666666666666671,78.666666666666671,74,68.666666666666671,76.555555555555557,71,70.666666666666671,67.5,61.333333333333336,62.666666666666664,62,71,88,80.666666666666671,78.666666666666671,75.666666666666671,65.333333333333329,62.666666666666664,74.666666666666671,63.333333333333336,61.333333333333336,70.666666666666671,64,77.090909090909093,60,67.666666666666671],"error_y":{"color":"rgba(141,160,203,1)","array":[3.3333333333333339,0.94280904158206336,2.27101500600704,1.2924123453177279,3.0912061651652349,4.1096093353126513,6.3546008828999136,0.94280904158206336,1.9293061504650377,1.8631927866906981,1.333333333333333,6.97614984548545,2.0470652628766355,0.70710678118654757,1.6035674514745462,2.4941846113749975,1.4142135623730949,1.7296103267675564,0.92582009977255131,3.2016530122082267,2.5495097567963922,0.47140452079103168,1.4882846440307882,2.6457513110645903,2.1087174095539165,3.7374127372092532,1.8708286933869707,2.7217785303406479,1.8708286933869707,2.323106841457232,0.94280904158206336,2.3741027013091993,2.816896270999568,0.94280904158206336,0.81649658092772603,0.94280904158206336,0.71269664509979835,2.6903708365381966,2.5464208723734689,0,0.94280904158206336,0.94280904158206336,1.247219128924647,0.94280904158206336,3.0263393991305994,3.217018238867531,5.1083498407252899,4.3933571789222077,0.40824829046386302,3.2659863237109041,4.9216076867444674,3.2071349029490923,2.1966785894611043,4.1096093353126513,3.0912061651652349,1.5150625274493228,2.8674417556808756,0.94280904158206336,1.1615534207286158,2.8284271247461903,2.0949675149960889,2.8949874578229835,2.1512661685496117,0.94280904158206336,0.94280904158206336,0.94280904158206336,0.47140452079103168,0.94280904158206336,0.81649658092772603,2.8284271247461903,0.47140452079103168,1.7962311323968683,1.6329931618554521,0.94280904158206336,0.47140452079103168,2.4944382578492941,1.247219128924647,2.1139003371117813,0.35634832254989918,0.81649658092772603,0.94280904158206336,0.23570226039551584,0.47140452079103168,2.4688535993934706,3.2998316455372221,3.2659863237109041,0.47140452079103168,0.47140452079103168,0.94280904158206336,0.47140452079103168,2.6246692913372702,2.4944382578492945,1.6329931618554521,0.53452248382484879,1.6499158227686108,1.8082702424807164]},"mode":"lines+markers","type":"scatter","name":"Xanomeline Low Dose","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>The output is not we expect. The points are in the right place but the order in which the lines are drawn between them does not follow the order of the x-axis. When working with plotly, the x-values must be ordered for lines to be drawn correctly. A simple <code>arrange(ADY)</code> step will take care of this and a slighly edited prompt leads to a more satisfactory output.</p>
+</section>
+<section id="second-prompt" class="level3">
+<h3 class="anchored" data-anchor-id="second-prompt">Second Prompt</h3>
+<p><em>“Take the loaded advs data, return the mean PULSE values along with standard errors, grouped by ADY and TRTA. Give me an interactive plot of this data with error bars. Make sure you plot X-axis values in correct order for plotly.”</em></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>advs <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(PARAMCD <span class="sc">==</span> <span class="st">"PULSE"</span>, ANL01FL <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_val =</span> <span class="fu">mean</span>(AVAL, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_val   =</span> <span class="fu">sd</span>(AVAL, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>()),</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> <span class="fu">c</span>(ADY, TRTA)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(ADY) <span class="sc">|&gt;</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_ly</span>(</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="sc">~</span>ADY,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="sc">~</span>mean_val,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="sc">~</span>TRTA,</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">error_y =</span> <span class="sc">~</span><span class="fu">list</span>(<span class="at">array =</span> se_val),</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"scatter"</span>,</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">mode =</span> <span class="st">"lines+markers"</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Mean Pulse Over Time by Treatment 2"</span>,</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Analysis Day"</span>, <span class="at">categoryorder =</span> <span class="st">"array"</span>, <span class="at">categoryarray =</span> <span class="sc">~</span><span class="fu">sort</span>(<span class="fu">unique</span>(ADY))),</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Mean Pulse (bpm)"</span>)</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-8ca21e3a5b71a98480b2" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-8ca21e3a5b71a98480b2">{"x":{"visdat":{"17756cd8bd44":["function () ","plotlyVisDat"]},"cur_data":"17756cd8bd44","attrs":{"17756cd8bd44":{"x":{},"y":{},"error_y":{},"mode":"lines+markers","color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Mean Pulse Over Time by Treatment 2","xaxis":{"domain":[0,1],"automargin":true,"title":"Analysis Day","categoryorder":"array","categoryarray":[5,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,68,69,70,71,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,94,95,96,97,99,100,103,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,126,127,132,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,153,154,155,161,162,164,165,166,167,168,169,170,171,172,173,174,175,176,177,179,180,181,182,183,184,185,186,187,188,189,190,191,193,194,196,197,198,200]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Mean Pulse (bpm)"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[13,14,15,16,17,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,36,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,62,63,64,65,69,70,78,79,80,82,83,84,85,86,87,88,89,90,91,92,95,96,97,100,106,107,108,110,111,112,113,114,115,116,117,118,119,120,121,122,123,126,127,132,134,135,136,138,139,140,141,142,143,144,145,146,147,148,149,161,162,165,166,167,168,169,170,171,172,173,174,175,176,177,179,180,181,182,183,184,185,186,188,189,190,191,194,196,197,198],"y":[86,78.555555555555557,72.581395348837205,67.888888888888886,80.722222222222229,77,82,64,67.166666666666671,71.833333333333329,92.666666666666671,76,76.416666666666671,77.358974358974365,72.3125,70.849999999999994,71.777777777777771,75.666666666666671,81.722222222222229,66.666666666666671,73.333333333333329,62.666666666666664,70,75.933333333333337,75.565217391304344,63.799999999999997,73.08393285371703,71.695238095238096,84.5,64.111111111111114,82.666666666666671,71.111111111111114,78,69,74,68.666666666666671,70.666666666666671,73,71.083333333333329,72.193548387096769,72,69.277777777777771,76.111111111111114,72.799999999999997,70.444444444444443,78.070175438596493,67.5,74.666666666666671,72,60,77.333333333333329,69,69.333333333333329,77.333333333333329,75.333333333333329,72.458333333333329,76.666666666666671,81.333333333333329,87.222222222222229,76,71.666666666666671,69.916666666666671,74.916666666666671,77.222222222222229,90,61.333333333333336,64.666666666666671,59,62,72,77.333333333333329,68.666666666666671,70.833333333333329,67.871794871794876,72.014492753623188,70.333333333333329,76.333333333333329,73.777777777777771,74.666666666666671,66,82,55.333333333333336,72.333333333333329,74.666666666666671,69.333333333333329,58.666666666666664,77.333333333333329,65.333333333333329,68,81.333333333333329,68.666666666666671,79.583333333333329,72.111111111111114,68.233333333333334,73.158730158730165,64.5,68.333333333333329,66.666666666666671,74.222222222222229,69.733333333333334,75.333333333333329,60.333333333333336,74.666666666666671,77.166666666666671,70.555555555555557,64,68.666666666666671,72.222222222222229,67.033333333333331,72.629629629629633,69.583333333333329,68.555555555555557,71.555555555555557,80,84,68,66.666666666666671,65,77.333333333333329,74.444444444444443,73.200000000000003,70.761904761904759,74.129629629629633,78,62.666666666666664,67.166666666666671,85.666666666666671,68.666666666666671,79.333333333333329,74.666666666666671,82,76.666666666666671,70.666666666666671,78.666666666666671],"error_y":{"color":"rgba(102,194,165,1)","array":[0.94280904158206336,4.3204937989385739,1.699673171197595,1.4029447488244029,1.3094349479989205,1.6499158227686108,1.4017499770773429,1.4532697427959747,1.5044000043935699,0.62889010046156124,0.92083284646666441,0.91303572820024315,1.1187137504979645,0.98983111758903675,1.4430173437535398,1.5754188155676079,2.5418926934160013,0.23570226039551584,2.7278338367791837,2.9256663872567237,1.9519695656400959,2.4055678027075271,5.5691896193138382,0.81649658092772603,1.247219128924647,1.543033499620919,0.84983658559879749,1.8708286933869707,4.9078815783697944,1.1408712905438991,0.47140452079103168,6.9550712342157848,6.97614984548545,0.47140452079103168,2.8284271247461903,1.7630386481787466,1.2354711202164499,0.94280904158206336,1.2166431576586934,1.0929388068218016,1.5374179467013727,1.4339059767835693,1.3595689960197945,1.6093738733303515,0.94142626033950305,1.415881589734554,1.3225600543267177,3.2261231176708631,1.9614685051167773,1.5743199310019265,2.4494897427831779,2.1037884698623874,0.54916964736527585,1.7260643804951294,3.4697140699662166,1.5423046727880014,1.2247448713915889,0.9759000729485332,2.2816839990114821,2.4941846113749975,0.94280904158206336,1.8845655471718941,2.4944382578492941,4.9633577983982411,1.6329931618554521,2.4944382578492941,0.81649658092772603,2.3800584788137247,2.8159996620242636,3.2659863237109041,2.9818750723946201,1.6532084495134369,2.1188277829359317,1.3854718199020466,1.7695466415103347,1.5598077432693938,0.8344401888802162,0.76860238782901291,1.2853133414748705,2.2034206870260471,1.4819821527376793,0.93088629079024454,2.9580398915498081,1.2598815766974241,2.6457513110645903,1.7868388290827086,2.6847033121554689,2.161585413329338,1.2991258372598362,6.3546008828999136,2.2396144792961614,0.82197648525490608,1.4142135623730949,1.4993175835606907,3.2016530122082267,0.65465367070797709,1.2153156559753562,2.3388582977437524,0.70710678118654757,1.699673171197595,0.47140452079103168,1.6688537838107982,3.4434202266268428,1.699673171197595,2.2888522252423846,1.4079152318560719,1.2203900408688413,2.621726586125575,1.2664944415596173,2.1472637928133054,1.0231094556614728,1.1243418611842604,1.0194992223531436,1.8064193400180955,1.0767047857868675,2.7217785303406479,1.3784309257156571,2.1087174095539165,0.94280904158206336,2.0144156399239881,1.1522670255828782,2.27101500600704,2.2574041885632399,1.7962311323968683,1.5634719199411433,2.0072819173816523,0.94280904158206336,3.2738929250328077,1.6666666666666665,1.7296103267675564,3.775442789126628,0,1.6049691355057034,0.35634832254989918]},"mode":"lines+markers","type":"scatter","name":"Placebo","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[12,13,14,15,16,17,18,19,20,21,22,26,27,28,29,30,31,32,33,34,35,36,37,40,41,42,43,44,45,46,47,48,49,50,54,55,56,57,58,59,60,61,62,63,64,68,69,70,71,82,83,84,85,86,87,88,89,90,91,92,95,99,103,109,111,112,113,114,116,117,118,119,120,124,127,137,138,139,140,141,142,145,147,148,154,155,162,165,167,168,169,170,172,173,174,175,176,177,180,181,182,183,184,186,188,189,190,196,200],"y":[83.333333333333329,78,74.444444444444443,76.745098039215691,75.594202898550719,73.666666666666671,74.666666666666671,76.777777777777771,71.333333333333329,76.833333333333329,78.666666666666671,75.111111111111114,74.857142857142861,79.352941176470594,79.714285714285708,78.083333333333329,62.666666666666664,72.166666666666671,63,72.771929824561397,68.666666666666671,81.666666666666671,76.666666666666671,77.777777777777771,76.333333333333329,79.851851851851848,74.427536231884062,75.333333333333329,69,79.022222222222226,72.260869565217391,73,81.13333333333334,68.888888888888886,69.777777777777771,73.464912280701753,76.066666666666663,72.771241830065364,71.319727891156461,78.666666666666671,78.666666666666671,77.623188405797109,81.333333333333329,70.060606060606062,80,78.666666666666671,54.666666666666664,78.666666666666671,76,70.444444444444443,77.777777777777771,73,71.428571428571431,75.666666666666671,71.777777777777771,84,71.222222222222229,80,80,82.666666666666671,63.333333333333336,73.333333333333329,74,62,76.416666666666671,77.388888888888886,73.148148148148152,72,76.666666666666671,79.333333333333329,67.111111111111114,75,68.888888888888886,77.333333333333329,56,88,83.333333333333329,79,71.833333333333329,72.5,79.285714285714292,83.333333333333329,85,86.666666666666671,72,61.333333333333336,76,80,74,67,70.444444444444443,72.722222222222229,76.111111111111114,70.083333333333329,68,68.333333333333329,71.333333333333329,95.333333333333329,72.333333333333329,58.666666666666664,71.333333333333329,71.733333333333334,76.714285714285708,62.666666666666664,70.666666666666671,86.666666666666671,71.666666666666671,63.333333333333336,66.666666666666671],"error_y":{"color":"rgba(252,141,98,1)","array":[2.4944382578492945,0.47140452079103168,0.47140452079103162,1.6329931618554521,0.53452248382484879,1.8082702424807164,1.6329931618554521,2.3367322183591042,1.6035674514745462,0.35634832254989918,1.8856180831641267,2.4405452306662316,1.9840634910475863,2.569664297758484,1.4870571937615433,1.5314322644436149,1.8100249932502244,1.677423350893894,1.5742639163453118,1.8631927866906981,0.8864774596116014,0.9202380506651312,1.4502651776181976,1.9339626780813637,1.6691339761842594,1.3930064082437057,1.98890219025436,1.3925982213102504,1.4882846440307882,0.98337834378888322,0.71269664509979835,0.92582009977255131,2.1384610992524213,1.5150625274493228,0.97025500142161392,0.60924902230891687,0,2.9129858356233096,2.4688535993934706,1.4253932901995967,0.92248036165366898,1.2924123453177279,2.0470652628766355,0,0.35634832254989918,0.71269664509979835,2.7831693707052301,0.94280904158206325,1.6035674514745462,3.2071349029490923,2.5495097567963922,3.0912061651652349,0,1.0312575156051289,1.4142135623730951,3.0963368013350201,2.8526303651191824,2.1777494329221154,4.3933571789222077,1.7308495148167828,1.2607889961275494,1.517185503441109,1.5277240651132009,1.5265830604509667,0.9949561314692672,0.81649658092772603,2.1306530782092468,2.5716582055020307,3.7374127372092532,0.94280904158206336,2.4944382578492941,1.2827089740112443,1.6329931618554521,1.9023794624226835,0.94280904158206336,2.6246692913372702,1.2079980377712787,0.23570226039551584,2.1139003371117813,1.4142135623730951,3.0912061651652349,3.0263393991305994,1.649915822768611,4.2743328645050687,2.5657460415480364,1.5327120894696269,2.4944382578492941,0.47140452079103168,3.2998316455372221,1.3123346456686351,0.94280904158206336,2.7182510717166819,0.81649658092772603,0.94280904158206336,0.86602540378443849,0.40824829046386302,0.94280904158206336,0.47140452079103168,0.81649658092772603,1.2320939718850814,1.922093765778466,5.3243972756741531,3.6251862446834338,1.8708286933869707,1.1176007064382782,3.4037016886303633,2.5464208723734689,1.6323071167208365,2.0102231595017384]},"mode":"lines+markers","type":"scatter","name":"Xanomeline High Dose","marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[5,12,13,14,15,16,17,18,19,21,22,24,26,27,28,29,30,31,32,34,36,40,41,42,43,44,45,46,48,50,54,55,56,57,58,59,60,61,62,63,64,65,81,82,83,84,85,86,87,88,90,92,94,106,111,112,113,114,115,116,117,118,119,120,126,134,139,140,141,142,143,144,145,146,147,153,164,166,167,168,169,170,173,174,176,180,181,183,184,185,187,190,191,193,197,198],"y":[70.666666666666671,84,67.666666666666671,79.200000000000003,77.567567567567565,68.083333333333329,72.083333333333329,69.666666666666671,75.666666666666671,71.666666666666671,70,74,74.666666666666671,73.596491228070178,69.037037037037038,72.86666666666666,70.952380952380949,89,78.266666666666666,74.799999999999997,60,72,71.400000000000006,67.074074074074076,73.080128205128204,76.047619047619051,75.166666666666671,72.150537634408607,76.666666666666671,66.222222222222229,69.333333333333329,61.962962962962962,74.962962962962962,73.044444444444451,76.555555555555557,77.122807017543863,66.416666666666671,77.090909090909093,65.833333333333329,71.333333333333329,81.666666666666671,80.666666666666671,66.666666666666671,81.333333333333329,75,77.333333333333329,73.215686274509807,77.533333333333331,75.777777777777771,61.333333333333336,84,68,68.666666666666671,78.666666666666671,62,72.166666666666671,66.13333333333334,70.916666666666671,61.333333333333336,64,76,68.333333333333329,70.666666666666671,77.444444444444443,63.333333333333336,71,71,67.5,67.533333333333331,75.666666666666671,62.666666666666664,68.666666666666671,69.666666666666671,76.888888888888886,73.833333333333329,61.333333333333336,70.666666666666671,64,88,70.222222222222229,67.592592592592595,65.333333333333329,78,82.833333333333329,68.333333333333329,64.666666666666671,69.666666666666671,73,62.666666666666664,64,65.333333333333329,67.222222222222229,80.666666666666671,78.666666666666671,68,75.333333333333329],"error_y":{"color":"rgba(141,160,203,1)","array":[1.0583697353930488,1.9279126621090092,2.0701966780270626,2.0949675149960889,1.2408394495995603,0.94280904158206336,2.1966785894611038,0.47140452079103168,2.2607766610417559,2.1230391362294392,0.47140452079103168,2.5706624194887859,1.4800031610524169,1.2692955176439848,3.217018238867531,0.47140452079103168,0.94280904158206336,1.9293061504650377,1.8658728470829633,0.47140452079103168,3.2659863237109041,0.94280904158206336,2.6822461565718463,1.767806633036249,0,0.94280904158206336,1.7795130420052185,0,1.6329931618554521,1.699673171197595,1.9971921929156748,3.3333333333333339,3.2659863237109041,1.4664238338211977,1.8005731010052024,3.1658248039197234,1.4460986322392457,1.0175292772678242,2.116685887661609,2.7122215988140685,2.2384477094960578,2.8949874578229835,3.5605236755280134,2.9319823947608268,2.816896270999568,2.9617155939183726,2.1602468994692869,2.3741027013091993,1.3017082793177759,1.6329931618554521,2.1966785894611043,2.371264561978613,5.1083498407252899,3.7432318271494367,0.94280904158206336,0.94280904158206336,4.2149582460414736,1.247219128924647,1.1615534207286158,5.9525238078095652,1.6295531050291021,1.247219128924647,1.6365974393390632,1.2021909822880628,0.94280904158206336,2.2055497009809377,3.3249895572100008,2.3502643872676279,1.5144288861273747,1.5213533872944374,2.5869201523617917,2.323106841457232,2.1512661685496117,0.81649658092772603,1.247219128924647,2.2555047300552458,0.47140452079103168,2.4944382578492941,2.6903708365381966,4.1096093353126513,1.9313618848260234,1.333333333333333,1.6617773401303177,1.2344267996967353,0.47140452079103168,2.728450923957483,4.9216076867444674,4.1096093353126513,2.8284271247461903,2.8674417556808756,0.94280904158206336,0,2.5888957013330902,2.0548046676563256,1.0983392947305517,0.47140452079103168]},"mode":"lines+markers","type":"scatter","name":"Xanomeline Low Dose","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>This time the plot looks far closer to what we expect, with the lines drawn in the correct order.</p>
+</section>
+</section>
+<section id="what-went-wrong-and-why" class="level2">
+<h2 class="anchored" data-anchor-id="what-went-wrong-and-why">What Went Wrong and Why?</h2>
+<p>The plot looks correct, filtering the data correctly, calculating the mean and standard error and plotting as expected. It’s only when we dig deep that we find the issue. Hovering over a single datapoint we see the following:</p>
+<p><img src="plotly_hover.png" class="img-fluid"></p>
+<p>At point ADY = 22, Xanomeline High Dose is 78.7 +/- 1.886.</p>
+<p>The data underlying this point is:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> advs <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(PARAMCD <span class="sc">==</span> <span class="st">"PULSE"</span>, ANL01FL <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_val =</span> <span class="fu">mean</span>(AVAL, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_val   =</span> <span class="fu">sd</span>(AVAL, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>()),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> <span class="fu">c</span>(ADY, TRTA)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(ADY)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ADY <span class="sc">==</span> <span class="dv">22</span>, TRTA <span class="sc">==</span> <span class="st">"Xanomeline High Dose"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+    ADY TRTA                 mean_val se_val
+  &lt;dbl&gt; &lt;chr&gt;                   &lt;dbl&gt;  &lt;dbl&gt;
+1    22 Xanomeline High Dose     78.7  0.471</code></pre>
+</div>
+</div>
+<p>When calculated, the mean is 78.7 and the standard error is 0.47, but the plot shows 78.7 +/- 1.886.</p>
+<p>This is illustrating a known issue with plotly, which is that error bars are not necessarily plotted in correct order (see https://github.com/plotly/plotly.R/issues/762).</p>
+<p>The LLM did not know this and has interpreted the prompt exactly as was expected.</p>
+</section>
+<section id="correcting-the-issue" class="level2">
+<h2 class="anchored" data-anchor-id="correcting-the-issue">Correcting the Issue</h2>
+<p>Telling the LLM that it the error bars are incorrect can lead to some interesting outcomes, many of which acknowledge the mistake and supply a fix, but the new code still produces the same output. Only when we are specific can we be sure of the correct output.</p>
+<p><em>this is still incorrect. Please review https://github.com/plotly/plotly.R/issues/762 and plot again.</em></p>
+<p>Response: <em>The issue is that error_y arrays don’t get correctly split when color creates separate traces — each trace gets the full unsplit error array. The workaround is to build traces manually per group</em></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> advs <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(PARAMCD <span class="sc">==</span> <span class="st">"PULSE"</span>, ANL01FL <span class="sc">==</span> <span class="st">"Y"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_val =</span> <span class="fu">mean</span>(AVAL, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">se_val   =</span> <span class="fu">sd</span>(AVAL, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>()),</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> <span class="fu">c</span>(ADY, TRTA)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(ADY)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">plot_ly</span>()</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (trt <span class="cf">in</span> <span class="fu">unique</span>(plot_data<span class="sc">$</span>TRTA)) {</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">&lt;-</span> <span class="fu">filter</span>(plot_data, TRTA <span class="sc">==</span> trt)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> p <span class="sc">|&gt;</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_trace</span>(</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> d,</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="sc">~</span>ADY,</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="sc">~</span>mean_val,</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">error_y =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">"data"</span>, <span class="at">array =</span> d<span class="sc">$</span>se_val),</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">type =</span> <span class="st">"scatter"</span>,</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">mode =</span> <span class="st">"lines+markers"</span>,</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">name =</span> trt</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">|&gt;</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Mean Pulse Over Time by Treatment 4"</span>,</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Analysis Day"</span>),</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Mean Pulse (bpm)"</span>)</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-2762117b547543a95c41" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-2762117b547543a95c41">{"x":{"visdat":{"1775395d2419":["function () ","plotlyVisDat"],"177511ed02bb":["function () ","data"],"17755f4e4c2e":["function () ","data"],"1775d6b90e4":["function () ","data"]},"cur_data":"1775d6b90e4","attrs":{"177511ed02bb":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"error_y":{"type":"data","array":[0.94280904158206336,4.3204937989385739,1.6499158227686108,1.5044000043935699,0.91303572820024315,1.4430173437535398,1.5754188155676079,2.9256663872567237,1.9519695656400959,0.84983658559879749,1.1408712905438991,6.97614984548545,0.94280904158206336,1.0929388068218016,1.6093738733303515,1.3225600543267177,1.9614685051167773,2.4494897427831779,1.7260643804951294,2.2816839990114821,1.6329931618554521,3.2659863237109041,2.9818750723946201,1.5598077432693938,0.76860238782901291,1.4819821527376793,1.2598815766974241,1.7868388290827086,2.2396144792961614,1.2153156559753562,1.699673171197595,2.2888522252423846,2.1472637928133054,1.1243418611842604,2.7217785303406479,1.3784309257156571,2.0144156399239881,1.7962311323968683,1.5634719199411433,1.6666666666666665,3.775442789126628,0.35634832254989918,1.8856180831641267,2.569664297758484,1.5314322644436149,1.5742639163453118,0.8864774596116014,1.3930064082437057,1.3925982213102504,0.71269664509979835,0,1.2924123453177279,2.0470652628766355,3.0912061651652349,4.3933571789222077,1.517185503441109,1.5265830604509667,2.5716582055020307,0.94280904158206336,1.6329931618554521,1.9023794624226835,0.23570226039551584,3.0912061651652349,4.2743328645050687,0.94280904158206336,0.40824829046386302,1.8708286933869707,2.5464208723734689,2.0102231595017384,2.0949675149960889,0.94280904158206336,0.47140452079103168,2.2607766610417559,2.5706624194887859,1.2692955176439848,0.47140452079103168,0.94280904158206336,1.6329931618554521,3.2659863237109041,3.1658248039197234,1.4460986322392457,2.8949874578229835,2.1602468994692869,1.3017082793177759,3.7432318271494367,1.247219128924647,1.6365974393390632,1.5213533872944374,2.1512661685496117,0.81649658092772603,2.4944382578492941,1.6617773401303177,4.9216076867444674,4.1096093353126513,0,2.0548046676563256]},"type":"scatter","mode":"lines+markers","name":"Xanomeline Low Dose","inherit":true},"17755f4e4c2e":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"error_y":{"type":"data","array":[1.699673171197595,1.3094349479989205,1.4017499770773429,0.92083284646666441,1.1187137504979645,0.23570226039551584,2.7278338367791837,2.4055678027075271,1.247219128924647,1.543033499620919,0.47140452079103168,1.7630386481787466,1.2166431576586934,1.4339059767835693,1.415881589734554,3.2261231176708631,0.54916964736527585,1.5423046727880014,1.2247448713915889,2.4941846113749975,1.8845655471718941,4.9633577983982411,2.4944382578492941,2.8159996620242636,1.6532084495134369,1.7695466415103347,1.2853133414748705,2.2034206870260471,2.9580398915498081,2.161585413329338,1.2991258372598362,1.4142135623730949,3.2016530122082267,2.3388582977437524,1.6688537838107982,1.4079152318560719,2.621726586125575,1.0231094556614728,1.0767047857868675,0.94280904158206336,2.27101500600704,2.2574041885632399,0.94280904158206336,1.7296103267675564,0,0.47140452079103168,0.47140452079103162,1.8082702424807164,1.6329931618554521,2.4405452306662316,1.4870571937615433,1.8631927866906981,1.4502651776181976,1.6691339761842594,1.98890219025436,0.92582009977255131,1.5150625274493228,0.60924902230891687,2.4688535993934706,1.4253932901995967,0.35634832254989918,0.94280904158206325,3.2071349029490923,1.4142135623730951,2.8526303651191824,1.7308495148167828,1.5277240651132009,0.81649658092772603,2.4944382578492941,2.6246692913372702,2.1139003371117813,3.0263393991305994,2.5657460415480364,3.2998316455372221,0.81649658092772603,0.81649658092772603,1.922093765778466,5.3243972756741531,3.4037016886303633,1.6323071167208365,1.9279126621090092,0.47140452079103168,3.217018238867531,0.94280904158206336,3.2659863237109041,0.94280904158206336,0,0,3.3333333333333339,1.8005731010052024,2.116685887661609,2.7122215988140685,2.9319823947608268,2.9617155939183726,2.1966785894611043,5.1083498407252899,0.94280904158206336,1.247219128924647,5.9525238078095652,0.94280904158206336,3.3249895572100008,2.3502643872676279,2.5869201523617917,0.47140452079103168,4.1096093353126513,1.333333333333333,1.2344267996967353,2.8674417556808756,0.47140452079103168]},"type":"scatter","mode":"lines+markers","name":"Xanomeline High Dose","inherit":true},"1775d6b90e4":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"error_y":{"type":"data","array":[1.4029447488244029,1.4532697427959747,0.62889010046156124,0.98983111758903675,2.5418926934160013,5.5691896193138382,0.81649658092772603,1.8708286933869707,4.9078815783697944,6.9550712342157848,0.47140452079103168,2.8284271247461903,1.2354711202164499,1.5374179467013727,1.3595689960197945,0.94142626033950305,1.5743199310019265,2.1037884698623874,3.4697140699662166,0.9759000729485332,0.94280904158206336,2.4944382578492941,0.81649658092772603,2.3800584788137247,2.1188277829359317,1.3854718199020466,0.8344401888802162,0.93088629079024454,2.6457513110645903,2.6847033121554689,6.3546008828999136,0.82197648525490608,1.4993175835606907,0.65465367070797709,0.70710678118654757,1.699673171197595,0.47140452079103168,3.4434202266268428,1.2203900408688413,1.2664944415596173,1.0194992223531436,1.8064193400180955,2.1087174095539165,1.1522670255828782,2.0072819173816523,3.2738929250328077,1.6049691355057034,2.4944382578492945,1.6329931618554521,0.53452248382484879,2.3367322183591042,1.6035674514745462,0.35634832254989918,1.9840634910475863,1.8100249932502244,1.677423350893894,0.9202380506651312,1.9339626780813637,1.4882846440307882,0.98337834378888322,2.1384610992524213,0.97025500142161392,2.9129858356233096,0.92248036165366898,0,0.71269664509979835,2.7831693707052301,1.6035674514745462,2.5495097567963922,0,1.0312575156051289,3.0963368013350201,2.1777494329221154,1.2607889961275494,0.9949561314692672,2.1306530782092468,3.7374127372092532,1.2827089740112443,0.94280904158206336,1.2079980377712787,1.4142135623730951,1.649915822768611,1.5327120894696269,2.4944382578492941,0.47140452079103168,1.3123346456686351,2.7182510717166819,0.94280904158206336,0.86602540378443849,0.94280904158206336,0.47140452079103168,1.2320939718850814,3.6251862446834338,1.1176007064382782,1.0583697353930488,2.0701966780270626,1.2408394495995603,2.1966785894611038,2.1230391362294392,1.4800031610524169,0.47140452079103168,1.9293061504650377,1.8658728470829633,2.6822461565718463,1.767806633036249,1.7795130420052185,1.699673171197595,1.9971921929156748,1.4664238338211977,1.0175292772678242,2.2384477094960578,3.5605236755280134,2.816896270999568,2.3741027013091993,1.6329931618554521,2.371264561978613,0.94280904158206336,4.2149582460414736,1.1615534207286158,1.6295531050291021,1.2021909822880628,2.2055497009809377,1.5144288861273747,2.323106841457232,1.247219128924647,2.2555047300552458,2.6903708365381966,1.9313618848260234,0.47140452079103168,2.728450923957483,2.8284271247461903,0.94280904158206336,2.5888957013330902,1.0983392947305517]},"type":"scatter","mode":"lines+markers","name":"Placebo","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Mean Pulse Over Time by Treatment 4","xaxis":{"domain":[0,1],"automargin":true,"title":"Analysis Day"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Mean Pulse (bpm)"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[5,12,13,14,15,16,17,18,19,21,22,24,26,27,28,29,30,31,32,34,36,40,41,42,43,44,45,46,48,50,54,55,56,57,58,59,60,61,62,63,64,65,81,82,83,84,85,86,87,88,90,92,94,106,111,112,113,114,115,116,117,118,119,120,126,134,139,140,141,142,143,144,145,146,147,153,164,166,167,168,169,170,173,174,176,180,181,183,184,185,187,190,191,193,197,198],"y":[70.666666666666671,84,67.666666666666671,79.200000000000003,77.567567567567565,68.083333333333329,72.083333333333329,69.666666666666671,75.666666666666671,71.666666666666671,70,74,74.666666666666671,73.596491228070178,69.037037037037038,72.86666666666666,70.952380952380949,89,78.266666666666666,74.799999999999997,60,72,71.400000000000006,67.074074074074076,73.080128205128204,76.047619047619051,75.166666666666671,72.150537634408607,76.666666666666671,66.222222222222229,69.333333333333329,61.962962962962962,74.962962962962962,73.044444444444451,76.555555555555557,77.122807017543863,66.416666666666671,77.090909090909093,65.833333333333329,71.333333333333329,81.666666666666671,80.666666666666671,66.666666666666671,81.333333333333329,75,77.333333333333329,73.215686274509807,77.533333333333331,75.777777777777771,61.333333333333336,84,68,68.666666666666671,78.666666666666671,62,72.166666666666671,66.13333333333334,70.916666666666671,61.333333333333336,64,76,68.333333333333329,70.666666666666671,77.444444444444443,63.333333333333336,71,71,67.5,67.533333333333331,75.666666666666671,62.666666666666664,68.666666666666671,69.666666666666671,76.888888888888886,73.833333333333329,61.333333333333336,70.666666666666671,64,88,70.222222222222229,67.592592592592595,65.333333333333329,78,82.833333333333329,68.333333333333329,64.666666666666671,69.666666666666671,73,62.666666666666664,64,65.333333333333329,67.222222222222229,80.666666666666671,78.666666666666671,68,75.333333333333329],"error_y":{"color":"rgba(31,119,180,1)","type":"data","array":[0.94280904158206336,4.3204937989385739,1.6499158227686108,1.5044000043935699,0.91303572820024315,1.4430173437535398,1.5754188155676079,2.9256663872567237,1.9519695656400959,0.84983658559879749,1.1408712905438991,6.97614984548545,0.94280904158206336,1.0929388068218016,1.6093738733303515,1.3225600543267177,1.9614685051167773,2.4494897427831779,1.7260643804951294,2.2816839990114821,1.6329931618554521,3.2659863237109041,2.9818750723946201,1.5598077432693938,0.76860238782901291,1.4819821527376793,1.2598815766974241,1.7868388290827086,2.2396144792961614,1.2153156559753562,1.699673171197595,2.2888522252423846,2.1472637928133054,1.1243418611842604,2.7217785303406479,1.3784309257156571,2.0144156399239881,1.7962311323968683,1.5634719199411433,1.6666666666666665,3.775442789126628,0.35634832254989918,1.8856180831641267,2.569664297758484,1.5314322644436149,1.5742639163453118,0.8864774596116014,1.3930064082437057,1.3925982213102504,0.71269664509979835,0,1.2924123453177279,2.0470652628766355,3.0912061651652349,4.3933571789222077,1.517185503441109,1.5265830604509667,2.5716582055020307,0.94280904158206336,1.6329931618554521,1.9023794624226835,0.23570226039551584,3.0912061651652349,4.2743328645050687,0.94280904158206336,0.40824829046386302,1.8708286933869707,2.5464208723734689,2.0102231595017384,2.0949675149960889,0.94280904158206336,0.47140452079103168,2.2607766610417559,2.5706624194887859,1.2692955176439848,0.47140452079103168,0.94280904158206336,1.6329931618554521,3.2659863237109041,3.1658248039197234,1.4460986322392457,2.8949874578229835,2.1602468994692869,1.3017082793177759,3.7432318271494367,1.247219128924647,1.6365974393390632,1.5213533872944374,2.1512661685496117,0.81649658092772603,2.4944382578492941,1.6617773401303177,4.9216076867444674,4.1096093353126513,0,2.0548046676563256]},"type":"scatter","mode":"lines+markers","name":"Xanomeline Low Dose","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[12,13,14,15,16,17,18,19,20,21,22,26,27,28,29,30,31,32,33,34,35,36,37,40,41,42,43,44,45,46,47,48,49,50,54,55,56,57,58,59,60,61,62,63,64,68,69,70,71,82,83,84,85,86,87,88,89,90,91,92,95,99,103,109,111,112,113,114,116,117,118,119,120,124,127,137,138,139,140,141,142,145,147,148,154,155,162,165,167,168,169,170,172,173,174,175,176,177,180,181,182,183,184,186,188,189,190,196,200],"y":[83.333333333333329,78,74.444444444444443,76.745098039215691,75.594202898550719,73.666666666666671,74.666666666666671,76.777777777777771,71.333333333333329,76.833333333333329,78.666666666666671,75.111111111111114,74.857142857142861,79.352941176470594,79.714285714285708,78.083333333333329,62.666666666666664,72.166666666666671,63,72.771929824561397,68.666666666666671,81.666666666666671,76.666666666666671,77.777777777777771,76.333333333333329,79.851851851851848,74.427536231884062,75.333333333333329,69,79.022222222222226,72.260869565217391,73,81.13333333333334,68.888888888888886,69.777777777777771,73.464912280701753,76.066666666666663,72.771241830065364,71.319727891156461,78.666666666666671,78.666666666666671,77.623188405797109,81.333333333333329,70.060606060606062,80,78.666666666666671,54.666666666666664,78.666666666666671,76,70.444444444444443,77.777777777777771,73,71.428571428571431,75.666666666666671,71.777777777777771,84,71.222222222222229,80,80,82.666666666666671,63.333333333333336,73.333333333333329,74,62,76.416666666666671,77.388888888888886,73.148148148148152,72,76.666666666666671,79.333333333333329,67.111111111111114,75,68.888888888888886,77.333333333333329,56,88,83.333333333333329,79,71.833333333333329,72.5,79.285714285714292,83.333333333333329,85,86.666666666666671,72,61.333333333333336,76,80,74,67,70.444444444444443,72.722222222222229,76.111111111111114,70.083333333333329,68,68.333333333333329,71.333333333333329,95.333333333333329,72.333333333333329,58.666666666666664,71.333333333333329,71.733333333333334,76.714285714285708,62.666666666666664,70.666666666666671,86.666666666666671,71.666666666666671,63.333333333333336,66.666666666666671],"error_y":{"color":"rgba(255,127,14,1)","type":"data","array":[1.699673171197595,1.3094349479989205,1.4017499770773429,0.92083284646666441,1.1187137504979645,0.23570226039551584,2.7278338367791837,2.4055678027075271,1.247219128924647,1.543033499620919,0.47140452079103168,1.7630386481787466,1.2166431576586934,1.4339059767835693,1.415881589734554,3.2261231176708631,0.54916964736527585,1.5423046727880014,1.2247448713915889,2.4941846113749975,1.8845655471718941,4.9633577983982411,2.4944382578492941,2.8159996620242636,1.6532084495134369,1.7695466415103347,1.2853133414748705,2.2034206870260471,2.9580398915498081,2.161585413329338,1.2991258372598362,1.4142135623730949,3.2016530122082267,2.3388582977437524,1.6688537838107982,1.4079152318560719,2.621726586125575,1.0231094556614728,1.0767047857868675,0.94280904158206336,2.27101500600704,2.2574041885632399,0.94280904158206336,1.7296103267675564,0,0.47140452079103168,0.47140452079103162,1.8082702424807164,1.6329931618554521,2.4405452306662316,1.4870571937615433,1.8631927866906981,1.4502651776181976,1.6691339761842594,1.98890219025436,0.92582009977255131,1.5150625274493228,0.60924902230891687,2.4688535993934706,1.4253932901995967,0.35634832254989918,0.94280904158206325,3.2071349029490923,1.4142135623730951,2.8526303651191824,1.7308495148167828,1.5277240651132009,0.81649658092772603,2.4944382578492941,2.6246692913372702,2.1139003371117813,3.0263393991305994,2.5657460415480364,3.2998316455372221,0.81649658092772603,0.81649658092772603,1.922093765778466,5.3243972756741531,3.4037016886303633,1.6323071167208365,1.9279126621090092,0.47140452079103168,3.217018238867531,0.94280904158206336,3.2659863237109041,0.94280904158206336,0,0,3.3333333333333339,1.8005731010052024,2.116685887661609,2.7122215988140685,2.9319823947608268,2.9617155939183726,2.1966785894611043,5.1083498407252899,0.94280904158206336,1.247219128924647,5.9525238078095652,0.94280904158206336,3.3249895572100008,2.3502643872676279,2.5869201523617917,0.47140452079103168,4.1096093353126513,1.333333333333333,1.2344267996967353,2.8674417556808756,0.47140452079103168]},"type":"scatter","mode":"lines+markers","name":"Xanomeline High Dose","marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_x":{"color":"rgba(255,127,14,1)"},"line":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[13,14,15,16,17,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,36,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,62,63,64,65,69,70,78,79,80,82,83,84,85,86,87,88,89,90,91,92,95,96,97,100,106,107,108,110,111,112,113,114,115,116,117,118,119,120,121,122,123,126,127,132,134,135,136,138,139,140,141,142,143,144,145,146,147,148,149,161,162,165,166,167,168,169,170,171,172,173,174,175,176,177,179,180,181,182,183,184,185,186,188,189,190,191,194,196,197,198],"y":[86,78.555555555555557,72.581395348837205,67.888888888888886,80.722222222222229,77,82,64,67.166666666666671,71.833333333333329,92.666666666666671,76,76.416666666666671,77.358974358974365,72.3125,70.849999999999994,71.777777777777771,75.666666666666671,81.722222222222229,66.666666666666671,73.333333333333329,62.666666666666664,70,75.933333333333337,75.565217391304344,63.799999999999997,73.08393285371703,71.695238095238096,84.5,64.111111111111114,82.666666666666671,71.111111111111114,78,69,74,68.666666666666671,70.666666666666671,73,71.083333333333329,72.193548387096769,72,69.277777777777771,76.111111111111114,72.799999999999997,70.444444444444443,78.070175438596493,67.5,74.666666666666671,72,60,77.333333333333329,69,69.333333333333329,77.333333333333329,75.333333333333329,72.458333333333329,76.666666666666671,81.333333333333329,87.222222222222229,76,71.666666666666671,69.916666666666671,74.916666666666671,77.222222222222229,90,61.333333333333336,64.666666666666671,59,62,72,77.333333333333329,68.666666666666671,70.833333333333329,67.871794871794876,72.014492753623188,70.333333333333329,76.333333333333329,73.777777777777771,74.666666666666671,66,82,55.333333333333336,72.333333333333329,74.666666666666671,69.333333333333329,58.666666666666664,77.333333333333329,65.333333333333329,68,81.333333333333329,68.666666666666671,79.583333333333329,72.111111111111114,68.233333333333334,73.158730158730165,64.5,68.333333333333329,66.666666666666671,74.222222222222229,69.733333333333334,75.333333333333329,60.333333333333336,74.666666666666671,77.166666666666671,70.555555555555557,64,68.666666666666671,72.222222222222229,67.033333333333331,72.629629629629633,69.583333333333329,68.555555555555557,71.555555555555557,80,84,68,66.666666666666671,65,77.333333333333329,74.444444444444443,73.200000000000003,70.761904761904759,74.129629629629633,78,62.666666666666664,67.166666666666671,85.666666666666671,68.666666666666671,79.333333333333329,74.666666666666671,82,76.666666666666671,70.666666666666671,78.666666666666671],"error_y":{"color":"rgba(44,160,44,1)","type":"data","array":[1.4029447488244029,1.4532697427959747,0.62889010046156124,0.98983111758903675,2.5418926934160013,5.5691896193138382,0.81649658092772603,1.8708286933869707,4.9078815783697944,6.9550712342157848,0.47140452079103168,2.8284271247461903,1.2354711202164499,1.5374179467013727,1.3595689960197945,0.94142626033950305,1.5743199310019265,2.1037884698623874,3.4697140699662166,0.9759000729485332,0.94280904158206336,2.4944382578492941,0.81649658092772603,2.3800584788137247,2.1188277829359317,1.3854718199020466,0.8344401888802162,0.93088629079024454,2.6457513110645903,2.6847033121554689,6.3546008828999136,0.82197648525490608,1.4993175835606907,0.65465367070797709,0.70710678118654757,1.699673171197595,0.47140452079103168,3.4434202266268428,1.2203900408688413,1.2664944415596173,1.0194992223531436,1.8064193400180955,2.1087174095539165,1.1522670255828782,2.0072819173816523,3.2738929250328077,1.6049691355057034,2.4944382578492945,1.6329931618554521,0.53452248382484879,2.3367322183591042,1.6035674514745462,0.35634832254989918,1.9840634910475863,1.8100249932502244,1.677423350893894,0.9202380506651312,1.9339626780813637,1.4882846440307882,0.98337834378888322,2.1384610992524213,0.97025500142161392,2.9129858356233096,0.92248036165366898,0,0.71269664509979835,2.7831693707052301,1.6035674514745462,2.5495097567963922,0,1.0312575156051289,3.0963368013350201,2.1777494329221154,1.2607889961275494,0.9949561314692672,2.1306530782092468,3.7374127372092532,1.2827089740112443,0.94280904158206336,1.2079980377712787,1.4142135623730951,1.649915822768611,1.5327120894696269,2.4944382578492941,0.47140452079103168,1.3123346456686351,2.7182510717166819,0.94280904158206336,0.86602540378443849,0.94280904158206336,0.47140452079103168,1.2320939718850814,3.6251862446834338,1.1176007064382782,1.0583697353930488,2.0701966780270626,1.2408394495995603,2.1966785894611038,2.1230391362294392,1.4800031610524169,0.47140452079103168,1.9293061504650377,1.8658728470829633,2.6822461565718463,1.767806633036249,1.7795130420052185,1.699673171197595,1.9971921929156748,1.4664238338211977,1.0175292772678242,2.2384477094960578,3.5605236755280134,2.816896270999568,2.3741027013091993,1.6329931618554521,2.371264561978613,0.94280904158206336,4.2149582460414736,1.1615534207286158,1.6295531050291021,1.2021909822880628,2.2055497009809377,1.5144288861273747,2.323106841457232,1.247219128924647,2.2555047300552458,2.6903708365381966,1.9313618848260234,0.47140452079103168,2.728450923957483,2.8284271247461903,0.94280904158206336,2.5888957013330902,1.0983392947305517]},"type":"scatter","mode":"lines+markers","name":"Placebo","marker":{"color":"rgba(44,160,44,1)","line":{"color":"rgba(44,160,44,1)"}},"error_x":{"color":"rgba(44,160,44,1)"},"line":{"color":"rgba(44,160,44,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="the-big-picture" class="level2">
+<h2 class="anchored" data-anchor-id="the-big-picture">The Big Picture</h2>
+<p>In many ways, AI coding tools have democratized coding, making it available to those without a coding background, and introducing new languages to those with one. However, these tools are only as good as the data they are trained on and, if the training data are flawed, the output will be flawed.</p>
+<p>In pharmaceutical development, many SAS programmers are transitioning to R, and coding tools are helping this transition. There is also a push to move from static outputs to interactive ones, with plotly being a popular library and one which LLMs will favor, due to the abundance of plotly code in training data. When used blindly, this can lead to outputs that are not fit for purpose or, as in this example, incorrect. It is essential to build skills in any computer language and understand its idiosyncrasies in order to use it effectively with coding tools.</p>
+</section>
+<section id="solution" class="level2">
+<h2 class="anchored" data-anchor-id="solution">Solution</h2>
+<p>This is the perfect use-case for an LLM <code>skill</code> to ensure that error bars are plotted correctly.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<script type="text/javascript" src="../../../_resources/js/scripts.js"></script>
+
+
+
+
+</body></html>

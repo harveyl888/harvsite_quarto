@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,6 +12,9 @@
 
 <title>Running testthat within covr – Harvey Lieberman</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -73,14 +76,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-951d530066a765b0cdab471062cfb74b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-dark-5b75db0b2cd4b13a51f287f529ac0dde.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../../site_libs/bootstrap/bootstrap-951d530066a765b0cdab471062cfb74b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-cac8b2c7896029b35d9e5cdbbbc1cb6a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-d6fd8f7d869dc6558a15739d9b9c0e63.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-cac8b2c7896029b35d9e5cdbbbc1cb6a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -373,11 +376,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>Tests and test coverage are important aspects when developing packages. {testthat} is an R package used to build and run tests and {covr} is an R package used to report code coverage, i.e.&nbsp;what percentage of a the code base is covered by tests. {testthat} will run the tests in a package and report testing results but does not report code coverage, whereas {covr} runs a package tests to calculate coverage but only returns the code coverage, not the test results themselves. In order to get test output and code coverage both have to be run, which means tests are run twice. As the number of tests grows this can become time-consuming.</p>
 <p>Typically, testing to gather output of tests, along with code coverage, might look something like:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>testthat<span class="sc">::</span><span class="fu">test_package</span>(<span class="at">package =</span> <span class="st">"my package"</span>, <span class="at">reporter =</span> <span class="fu">ListReporter</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>testthat<span class="sc">::</span><span class="fu">test_package</span>(<span class="at">package =</span> <span class="st">"my package"</span>, <span class="at">reporter =</span> <span class="fu">ListReporter</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>There is, however, a way that both may be run together. By default, the <code>covr::package_coverage()</code> runs <code>tools::testInstalledPackage()</code> to calculate test coverage, but can use an alternative testing approach with the following syntax: <code>covr::package_coverage(type = "none", code = "my code")</code> where <strong>my code</strong> is the code run to perform the tests. By creating a user-defined reporter in {testthat} that sends output to a temporary file, <code>covr::package_coverage()</code> may be used to run both code coverage and return test output together.</p>
 <section id="custom-reporter" class="level3">
 <h3 class="anchored" data-anchor-id="custom-reporter">Custom Reporter</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a custom reporter</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a custom reporter</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>JSONReporter <span class="ot">&lt;-</span> R6<span class="sc">::</span><span class="fu">R6Class</span>( <span class="co"># nocov start</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"JSONReporter"</span>,</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">inherit =</span> testthat<span class="sc">::</span>Reporter,</span>
@@ -423,36 +426,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>      <span class="fu">message</span>(<span class="st">"Test results saved to: "</span>, self<span class="sc">$</span>output_file)</span>
 <span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    }</span>
 <span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>) <span class="co"># nocov end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>) <span class="co"># nocov end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The custom reporter is an R6 class to hold test results. It has a few methods, built based on the reporters in {testthat} (see, for example, <a href="https://github.com/r-lib/testthat/blob/main/R/reporter-list.R">https://github.com/r-lib/testthat/blob/main/R/reporter-list.R</a>). Upon initializing it can take the name of a json file which will be used to store test results. If no file is provided then test results will be stored in <code>test_results.json</code>. As each test is run, results are appended to <code>self$results</code>using the <code>add_result</code> method. This method also checks for existence of <code>expectation_success</code> in the result and sets a the <code>$pass</code> boolean parameter to reflect the pass/fail response. Once all tests are completed, the results are written to the json file.<br>
 The <code># nocov start</code> and <code># nocov end</code> decoration simply indicate that the lines between them should be excempt from test coverage determination.</p>
 <p>When testthat is run using <code>covr::package_coverage()</code> along with the custom reporter, tests are only run once. The function returns the result of test coverage and the json file holds the test results.</p>
 <p>The function may be run as follows:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>covr<span class="sc">::</span><span class="fu">package_coverage</span>(<span class="at">type =</span> <span class="st">"none"</span>, <span class="at">code =</span> <span class="st">"testthat::test_package('my package', reporter = JSONReporter$new(file = 'test_results.json'), stop_on_warning = FALSE, stop_on_failure = FALSE)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>covr<span class="sc">::</span><span class="fu">package_coverage</span>(<span class="at">type =</span> <span class="st">"none"</span>, <span class="at">code =</span> <span class="st">"testthat::test_package('my package', reporter = JSONReporter$new(file = 'test_results.json'), stop_on_warning = FALSE, stop_on_failure = FALSE)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="testing-the-approach" class="level2">
 <h2 class="anchored" data-anchor-id="testing-the-approach">Testing the Approach</h2>
 <p>To test, let’s create a simple function that takes 5 seconds to run:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>myFunction <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">a =</span> <span class="cn">NULL</span>) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>myFunction <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">a =</span> <span class="cn">NULL</span>) {</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Sys.sleep</span>(<span class="dv">5</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(a)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>along with a test that should pass without a problem:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">"my function works"</span>, {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">"my function works"</span>, {</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">myFunction</span>(<span class="st">"A"</span>), <span class="st">"A"</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Executing <code>testthat::test_local()</code> takes approximately 5.5 seconds to run. Running <code>covr::package_coverage()</code> takes an additional 15 seconds. This leads to a total time of just over 20 seconds.</p>
 <p>Running <code>covr::package_coverage(type = "none", code = "testthat::test_local(reporter = JSONReporter$new(file = 'test_results.json'), stop_on_warning = FALSE, stop_on_failure = FALSE)")</code> takes 15 seconds, returning package coverage along with the json file with the following contents:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">{</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"filename"</span><span class="fu">:</span> <span class="st">"test-my_function.R"</span><span class="fu">,</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"test_name"</span><span class="fu">:</span> <span class="st">"my function works"</span><span class="fu">,</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"pass"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"message"</span><span class="fu">:</span> <span class="st">"myFunction(</span><span class="ch">\"</span><span class="st">A</span><span class="ch">\"</span><span class="st">) (`actual`) not equal to </span><span class="ch">\"</span><span class="st">A</span><span class="ch">\"</span><span class="st"> (`expected`).</span><span class="ch">\n\n</span><span class="st">"</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Both the coverage and test results may be parsed and returned using the following approach:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>coverage_and_tests <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>coverage_and_tests <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  tmp_file_test <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".json"</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  coverage_raw <span class="ot">&lt;-</span> covr<span class="sc">::</span><span class="fu">package_coverage</span>(<span class="fu">system.file</span>(<span class="at">package =</span> <span class="st">"testPackage"</span>), <span class="at">type =</span> <span class="st">'none'</span>, <span class="at">code =</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">'testthat::test_package("testPackage", reporter = JSONReporter$new(file = "{tmp_file_test}"), stop_on_warning = FALSE, stop_on_failure = FALSE)'</span>))</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  coverage <span class="ot">&lt;-</span> <span class="fu">capture.output</span>(coverage_raw, <span class="at">type =</span> <span class="st">"message"</span>)</span>
@@ -463,9 +466,9 @@ The <code># nocov start</code> and <code># nocov end</code> decoration simply in
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">coverage =</span> <span class="fu">sub</span>(<span class="st">".*: ([0-9.]+)%"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1"</span>, coverage)</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">coverage =</span> df_coverage, <span class="at">tests =</span> df_tests))</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>leading to the following output:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coverage_and_tests</span>()</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coverage_and_tests</span>()</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>coverage</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                  file coverage</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> testPackage Coverage   <span class="fl">100.00</span></span>
@@ -473,7 +476,7 @@ The <code># nocov start</code> and <code># nocov end</code> decoration simply in
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>tests</span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>            filename         test_name pass                                                        message</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> test<span class="sc">-</span>my_function.R my <span class="cf">function</span> works <span class="cn">TRUE</span>  <span class="fu">myFunction</span>(<span class="st">"A"</span>) (<span class="st">`</span><span class="at">actual</span><span class="st">`</span>) not equal to <span class="st">"A"</span> (<span class="st">`</span><span class="at">expected</span><span class="st">`</span>).\n\n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> test<span class="sc">-</span>my_function.R my <span class="cf">function</span> works <span class="cn">TRUE</span>  <span class="fu">myFunction</span>(<span class="st">"A"</span>) (<span class="st">`</span><span class="at">actual</span><span class="st">`</span>) not equal to <span class="st">"A"</span> (<span class="st">`</span><span class="at">expected</span><span class="st">`</span>).\n\n</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>
@@ -543,13 +546,14 @@ The <code># nocov start</code> and <code># nocov end</code> decoration simply in
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
